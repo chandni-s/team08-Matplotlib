@@ -1,2 +1,3 @@
-# team08-Project
-go into docs folder and open index.html in any browser to see website report.
+# Deliverable 1
+1. Go into docs folder
+2. Open index.html in any browser to see website report.
