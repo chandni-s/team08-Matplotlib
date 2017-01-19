@@ -1,2 +1,2 @@
 # team08-Project
-Project created for team08
+go into docs folder and open index.html in any browser to see website report.
