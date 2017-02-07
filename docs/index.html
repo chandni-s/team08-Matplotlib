@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <!--
 	Read Only by HTML5 UP
 	html5up.net | @ajlkn
@@ -29,8 +29,10 @@
 						<li><a href="#experience">Past Experiences</a></li>
 						<li><a href="#members">Meet The Team</a></li>
 						<li><a href="#agreement">Team Agreement</a></li>
-						<li><a href="#progress">Progress</a></li>
-						<li><a href="#tools">Tools</a></li>
+						<!-- <li><a href="#progress">Progress</a></li> -->
+						<!-- <li><a href="#tools">Tools</a></li> -->
+						<li><a href="#matplotlib">Matplotlib</a></li>
+						<li><a href="#designPattern">Design Patterns</a></li>
 					</ul>
 				</nav>
 				<footer>
@@ -162,14 +164,14 @@
 										<a class="btn btn-primary" href="../teamagreement.pdf">TEAM AGREEMENT</a>
 									</div>
 							</section>
-							<section id="progress">
+					<!-- 		<section id="progress">
 									<div class="container">
 										<h3>Burndown Chart</h3>
 										<p style="padding:5px;">A burn down chart is a graphical representation of work left to do versus time. The outstanding work (or backlog) is often on the vertical axis, with time along the horizontal. That is, it is a run chart of outstanding work. It is useful for predicting when all of the work will be completed.</p>
 										<a class="btn btn-primary" href="burndown.html" target="_blank">Burndown Chart</a>
 									</div>
-							</section>
-							<section id="tools">
+							</section> -->
+							<!-- <section id="tools">
 									<div class="container">
 									<h3>Tools Being Used</h3>
 									<div class="col-lg-4" style="display:inline-block">
@@ -185,6 +187,59 @@
 										<p>In order to keep the team focused on our project and have a successful term overall, we have agreed to use various modern development and project management tools. This includes: GitHub to manage our project code, a Slack channel for project related communication, a Facebook group chat for emergency issues and Trello which would act as our scrum board to keep up with the progress of our work. Considering the fact that the team members are taking other courses as well, we have agreed to have two mandatory meetings each week; one on Thursdays where each team member will decide what they will work on over the weekend. We agree to have another team meeting on Mondays after meeting with TA where we will examine the feedback given by our TA and go over the work done over the weekend. The frequency of these meetings will escalate as we approach closer to a deliverable due date for the project. </p>
 
 								</div>
+							</section> -->
+							<section id="matplotlib">
+								<div class="container">
+									<h3>Matplotlib</h3>
+									<div class="col-lg-12" style="display:inline-block">
+										<p>MatPlotLib is a program created by John D Hunter to plot graphs and other functions similar to MATLAB. The program is an open source on github and has been going strong ever since the death of John in 2012.</p> 
+
+										<p>MatPlotLib is broken up into Three main Layers: the scripting layer, The Artist Layer, and the Backend layer. Each one of these layers is abstracted to each other and does not rely on the any of the layers above it. ( See Figure 1)</p>
+
+										<p><b>The scripting layer</b>(See Figure 1.1): Contains the main algorithm for the matplotlib PyPlot which configures or creates figure,  lines, plots, labels and others. PyPlot is the actual file you have to import when trying to call matplotlib functions because it contains most of functions that are implementable in user code such as plot. PyPlot uses various different states to keep track of things like current figure, Canvas area and current axes. Pyplot is an implementation of a stateful program which helps with its memory usage.</p>
+
+										<p><b>Transition Scripting Layer -> Artist layer</b>(See Figure 1.2): Pyplot imports all classes of the artist layer such as: Axes, subplots, Lines, Artist, Figure and others which it uses in its algorithm to tell the machine what to draw. </p>
+
+										<p><b>the Artist Layer</b>(See Figure 1.3): consists of 2 different types of artists, Primitives and Containers, Primitives contains the basic images needed to make graphs such as Line 2D, Rectangle, Text and other images. Containers are Objects where you draw the primitives on, such as Axis, Axes, and Figure. In Artist layer the Figure class is the base class needed to instantiate everything else, it is the window that Axes and subplots are drawn. The figure class contains a class called Axes which contains most of its elements such as Text, Line, Axis and ticks which also contains a subclass of its own called subplot which is created when plotting a graph. The subplot class is what actually represents the graph on the screen and as people change parameters and elements of a graph they call functions within this class and Axes. </p>
+
+										<p><b>Transition Artist Layer -> Backend Layer</b>(See Figure 1.4): When the artist wants to render the graph on the screen it calls on the Backends_bases file which is the gateway to the backends package that renders the pictures.</p>
+
+
+										<p><b>the Backend layer</b>(See Figure 1.5): the backend layer handles Rendering the actual graph on screen. The package backends handles all the physical properties of lines, Colors and Plots to show up on the screen. The Classes backend_bases.FigureCanvas, backend_bases.Renderer and backend_bases.GraphicsContextBase implements the backend layer to handle creating the Canvas, Rendering the images and rendering the colors respectively.</p>
+									</div>
+								</div>
+							</section>
+							<section id="designPattern">
+								<div class="container">
+									<h3>Design Patterns that we found</h3>
+									<div class="col-lg-12" style="display:inline-block;margin-bottom:10px;">
+										<div class="col-lg-6" style="display:inline-block">
+											<img src="images/Decorator.png" class="tool-img" >
+										</div>
+										<div class="col-lg-6" style="display:inline-block">
+											<h4><u>Decorator</u></h4>
+											<p>When it comes time to draw the the actual figure a Decorator pattern is used. The Decorator is important to allow customization to your chart. With a Decorator you can have a chart with any permutation of lines, images, text, legends, etc... Each part of the figure has access to the Artist class located <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/artist.py">here</a> (lines were only drawn connecting figure becasue when creating a new window the artist is used through the Figure class, but all the classes on the right extend Artist), when it needs to be drawn it hands its draw() method to Artist which in turn gives it to the renderer to actually draw. Think of the Renderer as the paintbrush and the Artist as the one who knows how to paint. This Decorator spans two layers: the Artist and the Backend. The order that objects are drawn is determined by a value in each of the classes called zorder, and the actual drawing takes place in a function call allow_rasteriztion located in artist.py.</p>
+										</div>
+									</div>
+									<div class="col-lg-12" style="display:inline-block;margin-bottom:10px;">
+										<div class="col-lg-6" style="display:inline-block">
+											<img src="images/Factory.png" class="tool-img" >
+										</div>
+										<div class="col-lg-6" style="display:inline-block">
+											<h4><u>Factory</u></h4>
+											<p>This Factory is used when adding subplots to a figure. A figure can contain multiple Axes which contain subplot information defined in the subplotBase class. When the user adds a new subplot, the current figure's <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/figure.py">add_subplot</a> method will run which in turn asks for a new instance of a subplot. The SubplotBase class is meant to be used an interface so we don't want the current Figure's Axes to contain an instance of it. So instead matplotlib dynamically creates an instance of the class AxesSubplot which will have all the methods of SubplotBase. Both the SubplotsBase class and the Factory Method(subplot_class_factory) can be found <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/axes/_subplots.py">here</a></p>
+										</div>
+									</div>
+									<div class="col-lg-12" style="display:inline-block;margin-bottom:10px;">
+										<div class="col-lg-6" style="display:inline-block">
+											<img src="images/Adapter.png" class="tool-img" >
+										</div>
+										<div class="col-lg-6" style="display:inline-block">
+											<h4><u>Adapter</u></h4>
+											<p>Not all users of matplotlib know how to use NumPy arrays and lists, but matplotlib depends heavily on NumPy. So, to answer this matplotlib allows users to give regualr python lists as input to all their plotting functions. The example in the side image uses the _process_plot_var_args class located <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/axes/_base.py">here</a> which contains methods that puts the data to be plotted in a format that the Artist can recognize. These methods call the methods of <a href="https://github.com/matplotlib/matplotlib/tree/master/lib/matplotlib/cbook">CBook</a> which is a set of files that will be our Adapter. The methods of CBook that are called can take Python lists or NumPy arrays depending on what the user inputed, and in either case a NumPy array is returned.</p>
+										</div>
+									</div>
+								</div>
 							</section>
 					</div>
 
@@ -192,7 +247,7 @@
 					<section id="footer">
 						<div class="container">
 							<ul class="copyright">
-								<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>&copy; Forkestra. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</div>
 					</section>
