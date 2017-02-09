@@ -365,17 +365,16 @@
                             types of artists, Primitives and Containers. Primitives
                             contains the basic images needed to make graphs such
                             as Line 2D, Rectangle, Text and other images. Containers on the other hand
-                            are Objects where you draw the primitives on, such as
-                            Axis, Axes, and Figure. In the Artist layer the Figure class
-                            is the base class needed to instantiate all primitives and containers
-                            it is the window that Axes and subplots are drawn. The
-                            figure class contains a class called Axes which contains
-                            elements such as Text, Line, Axis and ticks
-                            which also contains a subclass of its own called subplot
-                            which is created when plotting a graph. The subplot class
-                            represents the plots currently on the graph. For example,
-														if a graph was created with three lines plotting three different
-														sets of data each of them would be categorized as subplot.</p>
+                            are objects where you draw the primitives on; this includes
+                            Axis, Axes, and Figure. In the Artist layer, the Figure class
+                            is the base class needed to instantiate all Primitives and Containers.
+                            It is the window that Axes and subplots are drawn onto. The
+                            Figure class contains a class called Axes which contains
+                            elements such as Text, Line, Axis and Ticks.
+                            It also contains a subclass called AxesSubplot
+                            which is dynamically created when plotting a graph and contains information regarding style and position of the subplot. This class
+                            represents the plots currently on the figure. For example,
+							if a figure was created with two charts one placed above the other. Each of these sets of Axes would be considered a subplot.</p>
 
                         <p><b>Transition Artist Layer -> Backend Layer</b>(See Figure
                             1.4): When the artist wants to render the graph on the
