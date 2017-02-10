@@ -363,7 +363,7 @@
                             which it uses in its functions to tell the machine what
                             to draw. It does so through appropriate sequences of
                             method calls to the respective classes. This translate
-                            to a very high degree of coupling from the Scripting
+                            to a high degree of coupling from the Scripting
                             Layer to the Artist Layer.</p>
 
                             <p><b>The Artist Layer</b>:
@@ -390,19 +390,26 @@
                             on the screen, it calls on the Backends_bases module
                             which is the gateway to the backends package that renders
                             the pictures. The coupling between these two layers are
-                            really low.</p>
+                            low.</p>
 
                             <p><b>The Backend layer</b>: is the
                             layer which handles rendering the actual graph on screen.
                             The backend package handles displaying all the physical
                             properties of lines, such as colors and plots to show
-                            up on the screen. The classes backend_bases.FigureCanvas,
-                            backend_bases.Renderer and backend_bases.GraphicsContext
+                            up on the screen. The classes backend_bases.FigureCanvasBase,
+                            backend_bases.RendererBase and backend_bases.GraphicsContextBase
                             implement the backend layer to handle creating the canvas,
                             rendering the images, and rendering the colors respectively.</p>
 
+                           
+
                     </div>
                     <img src="images/package_diagram.png" width="800px" height="1200px" />
+                    <div>
+                     <p ><b>Potential Improvements</b> </p>
+                            <p>1) We've noticed that there were numerous imports from the Scripting Layer (pyplot) to the Artist Layer (Axes, Labels, etc). This could cause problems if any of the classes depended on gets deprecated or refactored. Also, if there was a desire to implement a new interface in place of pyplot, it could be an ordeal to ensure every needed dependencies are imported. An interface in the Artist Layer could reduce the level of coupling between it and the Scripting Layer.</p>
+                            <p>2) In the factory design pattern involving _Subplots.py to generate AxesSubplots objects, Subplot_class_factory generates different types depending on input; however, the generated classes is always inherting from SubplotBase. If new parent objects were introduced, the current design would require additional condition statements, which does not follow the Open/closed principle of Object-Oriented methodology.</p>
+                            </div>
                 </div>
             </section>
             <section id="designPattern">
@@ -464,12 +471,14 @@
                                 When the user adds a new subplot, the current figure's
                                 <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/figure.py">add_subplot</a>                                method will run which in turn asks for a new instance
                                 of a subplot. The SubplotBase class is meant to be
-                                used an interface so we don't want the current Figure's
-                                Axes to contain an instance of it. So instead matplotlib
+                                used as an interface. We don't want the current Figure's
+                                Axes to contain an instance of SubplotBase. So instead matplotlib
                                 dynamically creates an instance of the class AxesSubplot
                                 which will have all the methods of SubplotBase. Both
                                 the SubplotsBase class and the Factory Method(subplot_class_factory)
                                 can be found <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/axes/_subplots.py">here</a>
+
+                                <p>Note that the _Subplots class diagram does not represent a class. _Subplots is a file that holds the Subplot_class_factory() function. For the sake of simplicity and neatness we made it a class diagram.</p>
                             </p>
                         </div>
                     </div>
@@ -481,7 +490,7 @@
                             <h4><u>Adapter</u></h4>
                             <p>Not all users of matplotlib know how to use NumPy arrays
                                 and lists, but matplotlib depends heavily on NumPy.
-                                So, to answer this matplotlib allows users to give
+                                So to answer this, matplotlib allows users to give
                                 regular python lists as input to all their plotting
                                 functions. The example in the side image uses the
                                 _process_plot_var_args class located <a href="https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/axes/_base.py">here</a>                                which contains methods that puts the data to be plotted
