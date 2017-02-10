@@ -335,7 +335,7 @@
                         <p>Matplotlib is a program created by John D Hunter to plot
                             graphs and other functions similar to MATLAB. The program
                             is an open source on github and has been going strong
-                            even though John died in 2012. </p>
+                            among developers and users, despite John dying in 2012. </p>
 
                             <p>Matplotlib is broken up
                             into three main layers which builds on top of each other.
@@ -379,7 +379,8 @@
                             needed to instantiate everything else; it is the window
                             on which Axes and subplots are drawn. The Axes class
                             contains most of the elements such as Text, Line, Axis
-                            and Ticks. Each Axes object has a subplot object assigned
+                            and Ticks (These aggregate dependencies are left out of the UML diagram below for neatness sake)
+                            . Each Axes object has a subplot object assigned
                             to it, which is used to manipulate properties of these
                             elements. The subplot class is what actually controls
                             the graph on the screen and as people change parameters
@@ -387,17 +388,16 @@
                             and Axes class.<p>
                             <p><b>Transition Artist Layer -> Backend Layer</b>:
                             When the artist wants to render the graph
-                            on the screen, it calls on the Backends_bases module
+                            on the screen, it calls on the RendererBase class
                             which is the gateway to the backends package that renders
-                            the pictures. The coupling between these two layers are
-                            low.</p>
+                            the pictures. This structure provides a low coupling between the two layers.</p>
 
                             <p><b>The Backend layer</b>: is the
                             layer which handles rendering the actual graph on screen.
                             The backend package handles displaying all the physical
                             properties of lines, such as colors and plots to show
-                            up on the screen. The classes backend_bases.FigureCanvasBase,
-                            backend_bases.RendererBase and backend_bases.GraphicsContextBase
+                            up on the screen. The classes FigureCanvasBase,
+                            RendererBase and GraphicsContextBase
                             implement the backend layer to handle creating the canvas,
                             rendering the images, and rendering the colors respectively.</p>
 
@@ -462,6 +462,10 @@
                     <div class="col-lg-12" style="display:inline-block;margin-bottom:10px;">
                         <div class="col-lg-6" style="display:inline-block">
                             <img src="images/Factory.png" class="tool-img">
+                            <div style="display:inline-block;">
+                                <img src="images/factory_sequence.png" class="tool-img">
+                                <p style="font-size:8pt">This shows the execution of a add_subplot() from the user</p>
+                            </div>
                         </div>
                         <div class="col-lg-6" style="display:inline-block">
                             <h4><u>Factory</u></h4>
@@ -485,6 +489,10 @@
                     <div class="col-lg-12" style="display:inline-block;margin-bottom:10px;">
                         <div class="col-lg-6" style="display:inline-block">
                             <img src="images/Adapter.png" class="tool-img">
+                            <div style="display:inline-block;">
+                                <img src="images/adapter_sequence.png" class="tool-img">
+                                <p style="font-size:8pt">This shows the execution of a call to _check_1d(x) from _process_plot_var_args</p>
+                            </div>
                         </div>
                         <div class="col-lg-6" style="display:inline-block">
                             <h4><u>Adapter</u></h4>
