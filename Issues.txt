@@ -1,0 +1,1 @@
+Jacob: issue #7617 - set_ylabel() doesn't work with  AxesZeroSubplots
