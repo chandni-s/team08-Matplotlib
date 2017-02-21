@@ -1,1 +1,2 @@
 Jacob: issue #7617 - set_ylabel() doesn't work with  AxesZeroSubplots
+Nishant: issue #7194 - Bug in AxesStack.add
