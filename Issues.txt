@@ -1,3 +1,7 @@
 Jacob: issue #7617 - set_ylabel() doesn't work with AxesZeroSubplots. The problem was that AxesZeroSubplot() sets both axis to be instances of Xaxis. Thus, when the axes were being drawn it wouldn't look to the Yaxis to find the label. THe problem was in AxesZeroSubplot() not set_ylabel().
+
 Nishant: issue #7194 - Bug in AxesStack.add
+
 Steven: Issue #8089 - Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS
+
+Chandni: Issue #7460 (#7744) - Raise an appropriate ValueError if the limit set to set_xlim and set_ylim was out of bounds. Currently, the Value Error being raised is not much help as it only says “Unrecognized kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py) whereas it would be beneficial to have meaningful ValueErrors (or better treat them as None so program doesn’t crash after execution).
