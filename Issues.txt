@@ -2,6 +2,6 @@ Jacob: issue #7617 - set_ylabel() doesn't work with AxesZeroSubplots. The proble
 
 Nishant: issue #7194 - Bug in AxesStack.add
 
-Steven: Issue #8089 - Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS
+Steven: Issue #8089 - Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS, It seems like when you want to create more than 910 Elements in the date_list(their example) it causes the x-ticks to exceed 1000 and throw an error. The issue can be easily fixed by increasing the limit of the Constant variable but however the more recent code seems that it could create memory problems in the program.
 
 Chandni: Issue #7460 (#7744) - Raise an appropriate ValueError if the limit set to set_xlim and set_ylim was out of bounds. Currently, the Value Error being raised is not much help as it only says “Unrecognized kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py) whereas it would be beneficial to have meaningful ValueErrors (or better treat them as None so program doesn’t crash after execution).
