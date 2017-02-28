@@ -36,10 +36,17 @@
                 <li><a href="#agreement">Team Agreement</a>
                 </li>
                 <li><a href="#progress">Progress</a></li>
+                <!-- D1 -->
                 <!--<li><a href="#tools">Tools</a></li>-->
-                <li><a href="#matplotlib">Matplotlib</a>
+                <!-- D2 -->
+                <!-- <li><a href="#matplotlib">Matplotlib</a>
                 </li>
                 <li><a href="#designPattern">Design Patterns</a>
+                </li> -->
+                <!-- D3 -->
+                <li><a href="#Investigate">Investigated Issues</a>
+                </li>
+                <li><a href="#Fixed">Fixed Issues</a>
                 </li>
             </ul>
         </nav>
@@ -312,6 +319,7 @@
                     <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 10th 2017</a>
 									</div>
 							</section>
+                            <!-- D1 -->
             <!-- <section id="tools">
 									<div class="container">
 									<h3>Tools Being Used</h3>
@@ -329,7 +337,9 @@
 
 								</div>
 							</section> -->
-            <section id="matplotlib">
+
+                            <!-- D2 -->
+           <!--  <section id="matplotlib">
                 <div class="container">
                     <h3>Matplotlib</h3>
                     <div class="col-lg-12" style="display:inline-block">
@@ -511,7 +521,42 @@
                         </div>
                     </div>
                 </div>
+            </section> -->
+            <!-- D3 -->
+            <section id="Investigate">
+                <div class="container">
+                <h3>Investigated Issues</h3>
+                
+                <div class="col-lg-12" style="display:inline-block">
+                    <!-- Jacob-->
+                    <p><b>Issue #7617 <i><u>FIXED</u></i>:</b> set_ylabel() doesn't work with AxesZeroSubplots. The problem was that AxesZeroSubplot() sets both axis to be instances of Xaxis. (explained in more detail below)</p>
+                    <!-- Nishant-->
+                    <p><b>Issue #7194 <i><u>FIXED</u></i>:</b> explain issue (explained in more detail below)</p>
+                    <!-- Chandni-->
+                    <p><b>Issue #7460:</b> Raise an appropriate ValueError if the limit set to set_xlim and set_ylim was out of bounds. Currently, the Value Error being raised is not much help as it only says “Unrecognized kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py) whereas it would be beneficial to have meaningful ValueErrors (or better treat them as None so program doesn’t crash after execution).</p>
+                    <!-- Steven-->
+                    <p><b>Issue #8089:</b> Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS, It seems like when you want to create more than 910 Elements in the date_list(their example) it causes the x-ticks to exceed 1000 and throw an error. The issue can be easily fixed by increasing the limit of the Constant variable but however the more recent code seems that it could create memory problems in the program.</p>
+                    <!-- Henry-->
+                    <p><b>Issue #7112:</b> It seems that shifts on the values in the axes cannot be set on the parallel direction to the respective axis. Eg. a shift vertically on a tick in the y axis does not register but a horizontal one will. The work-around suggested by a user was to manually define a lambda to change the axis coordinate. After a trace of the execution, I still could not pinpoint the exact location of the problem. However, the traces do hint at a possible sequence of calls in the wrong order being the cause of the issue.</p>
+                </div>
             </section>
+            <section id="Fixed">
+                <div class="container">
+                <h3>Fixed Issues</h3>
+                <div class="col-lg-12" style="display:inline-block">
+                    <div class="col-lg-6" style="display:inline-block">
+                        <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
+                        <img src="images/jacob_issue_expected.png" class="tool-img">
+
+                        <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
+                        <img src="images/jacob_issue_actual.png" class="tool-img">
+                    </div>
+                    <div class="col-lg-6" style="display:inline-block">
+                        <h4><u>Issue #7617</u></h4>
+                        <p>I will explain my process here</p>
+                    </div>
+                </div>
+            </section> 
         </div>
 
         <!-- Footer -->
