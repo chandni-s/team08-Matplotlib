@@ -1,6 +1,6 @@
 Jacob: issue #7617 - set_ylabel() doesn't work with AxesZeroSubplots. The problem was that AxesZeroSubplot() sets both axis to be instances of Xaxis. Thus, when the axes were being drawn it wouldn't look to the Yaxis to find the label. THe problem was in AxesZeroSubplot() not set_ylabel().
 
-Nishant: issue #7194 - Bug in AxesStack.add
+Nishant: issue #7194 - When adding an existing subplot into the AxesStack, an error is thrown due to an existing variable being of type Axes and the entry trying to be removed is of type tuple (key, Axes). According to the logic provided in figure.py. It should throw a warning and remove the previous entry.
 
 Steven: Issue #8089 - Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS, It seems like when you want to create more than 910 Elements in the date_list(their example) it causes the x-ticks to exceed 1000 and throw an error. The issue can be easily fixed by increasing the limit of the Constant variable but however the more recent code seems that it could create memory problems in the program.
 
