@@ -529,15 +529,15 @@
                 
                 <div class="col-lg-12" style="display:inline-block">
                     <!-- Jacob-->
-                    <p><b>Issue #7617 <i><u>FIXED</u></i>:</b> set_ylabel() doesn't work with AxesZeroSubplots. The problem was that AxesZeroSubplot() sets both axis to be instances of Xaxis. (explained in more detail below)</p>
+                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7617#issuecomment-281233218">Issue #7617</a> <i><u>FIXED</u></i>:</b> set_ylabel() doesn't work with AxesZeroSubplots. The problem was that AxesZeroSubplot() sets both axis to be instances of Xaxis. (explained in more detail below)</p>
                     <!-- Nishant-->
-                    <p><b>Issue #7194 <i><u>FIXED</u></i>:</b> explain issue (explained in more detail below)</p>
+                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7194">Issue #7194</a> <i><u>FIXED</u></i>:</b> When adding an existing subplot into the AxesStack, an error is thrown due to an existing variable being of type Axes and the entry trying to be removed is of type tuple (key, Axes). According to the logic provided in figure.py, it should throw a warning and remove the previous entry.(explained in more detail below)</p>
                     <!-- Chandni-->
-                    <p><b>Issue #7460:</b> Raise an appropriate ValueError if the limit set to set_xlim and set_ylim was out of bounds. Currently, the Value Error being raised is not much help as it only says “Unrecognized kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py) whereas it would be beneficial to have meaningful ValueErrors (or better treat them as None so program doesn’t crash after execution).</p>
+                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7460">Issue #7460:</a></b> Raise an appropriate ValueError if the limit set to set_xlim and set_ylim was out of bounds. Currently, the Value Error being raised is not much help as it only says “Unrecognized kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py) whereas it would be beneficial to have meaningful ValueErrors (or better treat them as None so program doesn’t crash after execution).</p>
                     <!-- Steven-->
-                    <p><b>Issue #8089:</b> Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS, It seems like when you want to create more than 910 Elements in the date_list(their example) it causes the x-ticks to exceed 1000 and throw an error. The issue can be easily fixed by increasing the limit of the Constant variable but however the more recent code seems that it could create memory problems in the program.</p>
+                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a></b> Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS, It seems like when you want to create more than 910 Elements in the date_list(their example) it causes the x-ticks to exceed 1000 and throw an error. The issue can be easily fixed by increasing the limit of the Constant variable but however the more recent code seems that it could create memory problems in the program.</p>
                     <!-- Henry-->
-                    <p><b>Issue #7112:</b> It seems that shifts on the values in the axes cannot be set on the parallel direction to the respective axis. Eg. a shift vertically on a tick in the y axis does not register but a horizontal one will. The work-around suggested by a user was to manually define a lambda to change the axis coordinate. After a trace of the execution, I still could not pinpoint the exact location of the problem. However, the traces do hint at a possible sequence of calls in the wrong order being the cause of the issue.</p>
+                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7112">Issue #7112:</a></b> It seems that shifts on the values in the axes cannot be set on the parallel direction to the respective axis. Eg. a shift vertically on a tick in the y axis does not register but a horizontal one will. The work-around suggested by a user was to manually define a lambda to change the axis coordinate. After a trace of the execution, I still could not pinpoint the exact location of the problem. However, the traces do hint at a possible sequence of calls in the wrong order being the cause of the issue.</p>
                 </div>
             </section>
             <section id="Fixed">
@@ -553,7 +553,18 @@
                     </div>
                     <div class="col-lg-6" style="display:inline-block">
                         <h4><u>Issue #7617</u></h4>
-                        <p>I will explain my process here</p>
+                        <p>For basic users, Matplotlib hides away all of the important drawing resources in the Artist and Backend layers by giving them the scripting layer to work off of. 
+                        For more advanced users, MatplotLib offers certain objects to allow greater control over the figures they create. One of those objects is the SubplotZero object. For most users, when they want to add a subplot they would just call figure.add_subplot() which creates and returns a new Axes and adds it to the figure's AxesStack. SubplotZero() will do the same thing, but the Axes that it returns will be scriptable. A scriptable Axes allows user to access the Axes individual artists. These artists can be used to draw on top of the exisiting Axes.</p>
+
+                        <p>For Example:</p>
+                            <pre>fig = plt.figure()
+ax = SubplotZero(fig, 111)
+ax.axis["xzero"].set_visible(True)
+                            </pre> 
+                            <p>This would draw another X-axis on top of the Axes the SubplotZero() returned</p>
+
+                        <p> Issue #7617 states that when creating new a new Y-axis using SubplotZero(), set.ylabel() (which is called by plt.ylabel()) does not change the ylabel on the new axis. As you can see in the "Actual Outcome" on the right the Y-axis' label is x when it should be y. After tracing through the code I discovered that during the creation of the AxisArtist object (which is what ax.axis is in the example above) it uses a variable called axis_direction to determine whether to assign a X-axis or Y-axis to the AxisArtist. This can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L973">here</a>. The problem was that this axis_direction variable wasn't being passed into the constructor of AxisArtist if you create it using SubplotZero(). So to fix this issue I passed the axis_direction variable into the constructor. You can see the fix <a href="https://github.com/desainis/matplotlib/commit/4079729f73eda76f5a1bddfc8d3b932aba3a10cc">here</a>.</p>
+
                     </div>
                 </div>
             </section> 
