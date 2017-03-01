@@ -312,13 +312,20 @@
                 </div>
             </section>
             <section id="progress">
-									<div class="container">
-										<h3>Burndown Chart</h3>
-										<p style="padding:5px;">A burn down chart is a graphical representation of work left to do versus time. The outstanding work (or backlog) is often on the vertical axis, with time along the horizontal. That is, it is a run chart of outstanding work. It is useful for predicting when all of the work will be completed.</p>
-										<a class="btn btn-primary" href="burndown.html" target="_blank">Burndown Chart</a>
-                    <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 10th 2017</a>
-									</div>
-							</section>
+				<div class="container">
+					<div style="display:inline-block; margin-bottom:10px">
+						<h3>Burndown Chart</h3>
+						<p style="padding:5px;">A burn down chart is a graphical representation of work left to do versus time. The outstanding work (or backlog) is often on the vertical axis, with time along the horizontal. That is, it is a run chart of outstanding work. It is useful for predicting when all of the work will be completed.</p>
+						<a class="btn btn-primary" href="burndown.html" target="_blank">Burndown Chart</a>
+		                <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 10th 2017</a>
+                    </div>
+                    <div style="display:inline-block;">
+                    	<h3>Trello Board</h3>
+                    	<p style="padding:5px;">A Trello Board is a visual representation of the list of tasks that needed to be completed. Each task is either in the Sprint Backlog (going to be done), In Progress (doing), or Sprint Complete (done) category.</p>
+                    	<a class="btn btn-primary" href="https://trello.com/b/0DUb1kt3/forkestra" target="_blank">Trello Board</a>
+                    </div>
+				</div>
+			</section>
                             <!-- D1 -->
             <!-- <section id="tools">
 									<div class="container">
@@ -563,7 +570,7 @@ ax.axis["xzero"].set_visible(True)
                             </pre> 
                             <p>This would draw another X-axis on top of the Axes the SubplotZero() returned</p>
 
-                        <p> Issue #7617 states that when creating new a new Y-axis using SubplotZero(), set.ylabel() (which is called by plt.ylabel()) does not change the ylabel on the new axis. As you can see in the "Actual Outcome" on the right the Y-axis' label is x when it should be y. After tracing through the code I discovered that during the creation of the AxisArtist object (which is what ax.axis is in the example above) it uses a variable called axis_direction to determine whether to assign a X-axis or Y-axis to the AxisArtist. This can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L973">here</a>. The problem was that this axis_direction variable wasn't being passed into the constructor of AxisArtist if you create it using SubplotZero(). So to fix this issue I passed the axis_direction variable into the constructor. You can see the fix <a href="https://github.com/desainis/matplotlib/commit/4079729f73eda76f5a1bddfc8d3b932aba3a10cc">here</a>.</p>
+                        <p> Issue #7617 states that when creating new a new Y-axis using SubplotZero(), set_ylabel() (which is called by plt.ylabel()) does not change the ylabel on the new axis. As you can see in the "Actual Outcome" on the right the Y-axis' label is x when it should be y. After tracing through the code I discovered that during the creation of the AxisArtist object (which is what ax.axis is in the example above) it uses a variable called axis_direction to determine whether to assign a X-axis or Y-axis to the AxisArtist. This can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L973">here</a>. The problem was that this axis_direction variable wasn't being passed into the constructor of AxisArtist if you create it using SubplotZero(). So to fix this issue I passed the axis_direction variable into the constructor. You can see the fix <a href="https://github.com/desainis/matplotlib/commit/4079729f73eda76f5a1bddfc8d3b932aba3a10cc">here</a>.</p>
 
                     </div>
                 </div>
