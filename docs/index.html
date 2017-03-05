@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="assets/bootstrap-3.3.7-dist/css/bootstrap.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 </head>
 
@@ -35,7 +36,8 @@
                 </li>
                 <li><a href="#agreement">Team Agreement</a>
                 </li>
-                <li><a href="#progress">Progress</a></li>
+                <li><a href="#progress">Progress</a>
+                </li>
                 <!-- D1 -->
                 <!--<li><a href="#tools">Tools</a></li>-->
                 <!-- D2 -->
@@ -312,26 +314,34 @@
                 </div>
             </section>
             <section id="progress">
-				<div class="container">
-					<div style="display:inline-block; margin-bottom:10px">
-						<h3>Burndown Chart</h3>
-						<p style="padding:5px;">A burn down chart is a graphical representation of work left to do versus time. The outstanding work (or backlog) is often on the vertical axis, with time along the horizontal. That is, it is a run chart of outstanding work. It is useful for predicting when all of the work will be completed.</p>
-						<a class="btn btn-primary" href="burndown.html" target="_blank">Burndown Chart</a>
-		                <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 10th 2017</a>
+                <div class="container">
+                    <div style="display:inline-block; margin-bottom:10px">
+                        <h3>Burndown Chart</h3>
+                        <p style="padding:5px;">A burn down chart is a graphical representation of work left
+                            to do versus time. The outstanding work (or backlog)
+                            is often on the vertical axis, with time along the horizontal.
+                            That is, it is a run chart of outstanding work. It is
+                            useful for predicting when all of the work will be completed.</p>
+                        <a class="btn btn-primary" href="burndown.html" target="_blank">Burndown Chart</a>
+                        <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 10th 2017</a>
                     </div>
                     <div style="display:inline-block; margin-bottom:10px">
-                    	<h3>Trello Board</h3>
-                    	<p style="padding:5px;">A Trello Board is a visual representation of the list of tasks that needed to be completed. Each task is either in the Sprint Backlog (going to be done), In Progress (doing), or Sprint Complete (done) category.</p>
-                    	<a class="btn btn-primary" href="https://trello.com/b/0DUb1kt3/forkestra" target="_blank">Trello Board</a>
+                        <h3>Trello Board</h3>
+                        <p style="padding:5px;">A Trello Board is a visual representation of the list of
+                            tasks that needed to be completed. Each task is either
+                            in the Sprint Backlog (going to be done), In Progress
+                            (doing), or Sprint Complete (done) category.</p>
+                        <a class="btn btn-primary" href="https://trello.com/b/0DUb1kt3/forkestra" target="_blank">Trello Board</a>
                     </div>
                     <div style="display:inline-block;">
                         <h3>MatplotLib Repository</h3>
-                        <p style="padding:5px;">This is the repository that we committed all the fixes for our issues to.</p>
+                        <p style="padding:5px;">This is the repository that we committed all the fixes for
+                            our issues to.</p>
                         <a class="btn btn-primary" href="https://github.com/desainis/matplotlib" target="_blank">Github</a>
                     </div>
-				</div>
-			</section>
-                            <!-- D1 -->
+                </div>
+            </section>
+            <!-- D1 -->
             <!-- <section id="tools">
 									<div class="container">
 									<h3>Tools Being Used</h3>
@@ -350,8 +360,8 @@
 								</div>
 							</section> -->
 
-                            <!-- D2 -->
-           <!--  <section id="matplotlib">
+            <!-- D2 -->
+            <!--  <section id="matplotlib">
                 <div class="container">
                     <h3>Matplotlib</h3>
                     <div class="col-lg-12" style="display:inline-block">
@@ -537,72 +547,180 @@
             <!-- D3 -->
             <section id="Investigate">
                 <div class="container">
-                <h3>Investigated Issues</h3>
-                
-                <div class="col-lg-12" style="display:inline-block">
-                    <!-- Jacob-->
-                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7617#issuecomment-281233218">Issue #7617</a> <i><u>FIXED</u></i>:</b> set_ylabel() doesn't work with AxesZeroSubplots. The problem was that AxesZeroSubplot() sets both axis to be instances of Xaxis. (explained in more detail below)</p>
-                    <!-- Nishant-->
-                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7194">Issue #7194</a> <i><u>FIXED</u></i>:</b> When adding an existing subplot into the AxesStack, an error is thrown due to an existing variable being of type Axes and the entry trying to be removed is of type tuple (key, Axes). According to the logic provided in figure.py, it should throw a warning and remove the previous entry.(explained in more detail below)</p>
-                    <!-- Chandni-->
-                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7460">Issue #7460:</a></b> Raise an appropriate ValueError if the limit set to set_xlim and set_ylim was out of bounds. Currently, the Value Error being raised is not much help as it only says “Unrecognized kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py) whereas it would be beneficial to have meaningful ValueErrors (or better treat them as None so program doesn’t crash after execution).</p>
-                    <!-- Steven-->
-                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a></b> Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS, It seems like when you want to create more than 910 Elements in the date_list(their example) it causes the x-ticks to exceed 1000 and throw an error. The issue can be easily fixed by increasing the limit of the Constant variable but however the more recent code seems that it could create memory problems in the program.</p>
-                    <!-- Henry-->
-                    <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7112">Issue #7112:</a></b> It seems that shifts on the values in the axes cannot be set on the parallel direction to the respective axis. Eg. a shift vertically on a tick in the y axis does not register but a horizontal one will. The work-around suggested by a user was to manually define a lambda to change the axis coordinate. After a trace of the execution, I still could not pinpoint the exact location of the problem. However, the traces do hint at a possible sequence of calls in the wrong order being the cause of the issue.</p>
-                </div>
+                    <h3>Investigated Issues</h3>
+
+                    <div class="col-lg-12" style="display:inline-block">
+                        <!-- Jacob-->
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7617#issuecomment-281233218">Issue #7617</a> <i><u>FIXED</u></i>:</b>                            set_ylabel() doesn't work with AxesZeroSubplots. The
+                            problem was that AxesZeroSubplot() sets both axis to
+                            be instances of Xaxis. (explained in more detail below)</p>
+                        <!-- Nishant-->
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7194">Issue #7194</a> <i><u>FIXED</u></i>:</b>                            When adding an existing subplot into the AxesStack, an
+                            error is thrown due to an existing variable being of
+                            type Axes and the entry trying to be removed is of type
+                            tuple (key, Axes). According to the logic provided in
+                            figure.py, it should throw a warning and remove the previous
+                            entry.(explained in more detail below)</p>
+                        <!-- Chandni-->
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7460">Issue #7460:</a></b>                            Raise an appropriate ValueError if the limit set to set_xlim
+                            and set_ylim was out of bounds. Currently, the Value
+                            Error being raised is not much help as it only says “Unrecognized
+                            kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py)
+                            whereas it would be beneficial to have meaningful ValueErrors
+                            (or better treat them as None so program doesn’t crash
+                            after execution).</p>
+                        <!-- Steven-->
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a></b>                            Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS,
+                            It seems like when you want to create more than 910 Elements
+                            in the date_list(their example) it causes the x-ticks
+                            to exceed 1000 and throw an error. The issue can be easily
+                            fixed by increasing the limit of the Constant variable
+                            but however the more recent code seems that it could
+                            create memory problems in the program.</p>
+                        <!-- Henry-->
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7112">Issue #7112:</a></b>                            It seems that shifts on the values in the axes cannot
+                            be set on the parallel direction to the respective axis.
+                            Eg. a shift vertically on a tick in the y axis does not
+                            register but a horizontal one will. The work-around suggested
+                            by a user was to manually define a lambda to change the
+                            axis coordinate. After a trace of the execution, I still
+                            could not pinpoint the exact location of the problem.
+                            However, the traces do hint at a possible sequence of
+                            calls in the wrong order being the cause of the issue.</p>
+                    </div>
             </section>
             <section id="Fixed">
                 <div class="container">
-                <h3>Fixed Issues</h3>
-                <div class="col-lg-12" style="display:inline-block">
-                    <div class="col-lg-6" style="display:inline-block">
-                        <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
-                        <img src="images/jacob_issue_expected.png" class="tool-img">
+                    <h3>Fixed Issues</h3>
+                    <div class="col-lg-12" style="display:inline-block;width:60vw">
+                        <div class="col-lg-6" style="display:inline-block">
+                            <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
+                            <img src="images/jacob_issue_expected.png" class="tool-img">
 
-                        <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
-                        <img src="images/jacob_issue_actual.png" class="tool-img">
-                    </div>
-                    <div class="col-lg-6" style="display:inline-block">
-                        <h4><u>Issue #7617</u></h4>
-                        <p>For basic users, Matplotlib hides away all of the important drawing resources in the Artist and Backend layers by giving them the scripting layer to work off of. 
-                        For more advanced users, MatplotLib offers certain objects to allow greater control over the figures they create. One of those objects is the SubplotZero object. For most users, when they want to add a subplot they would just call figure.add_subplot() which creates and returns a new Axes and adds it to the figure's AxesStack. SubplotZero() will do the same thing, but the Axes that it returns will be scriptable. A scriptable Axes allows user to access the Axes individual artists. These artists can be used to draw on top of the exisiting Axes.</p>
+                            <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
+                            <img src="images/jacob_issue_actual.png" class="tool-img">
+                        </div>
+                        <div class="col-lg-6" style="display:inline-block">
+                            <h4><u>Issue #7617</u></h4>
+                            <p>For basic users, Matplotlib hides away all of the important
+                                drawing resources in the Artist and Backend layers
+                                by giving them the scripting layer to work off of.
+                                For more advanced users, MatplotLib offers certain
+                                objects to allow greater control over the figures
+                                they create. One of those objects is the SubplotZero
+                                object. For most users, when they want to add a subplot
+                                they would just call figure.add_subplot() which creates
+                                and returns a new Axes and adds it to the figure's
+                                AxesStack. SubplotZero() will do the same thing,
+                                but the Axes that it returns will be scriptable.
+                                A scriptable Axes allows user to access the Axes
+                                individual artists. These artists can be used to
+                                draw on top of the exisiting Axes.</p>
 
-                        <p>For Example:</p>
-                            <pre>fig = plt.figure()
+                            <p>For Example:</p>
+                            <pre><code class="python">fig = plt.figure()
 ax = SubplotZero(fig, 111)
 ax.axis["xzero"].set_visible(True)
-                            </pre> 
-                            <p>This would draw another X-axis on top of the Axes the SubplotZero() returned</p>
+                            </code></pre>
+                            <p>This would draw another X-axis on top of the Axes the
+                                SubplotZero() returned</p>
 
-                        <p> Issue #7617 states that when creating new a new Y-axis using SubplotZero(), set_ylabel() (which is called by plt.ylabel()) does not change the ylabel on the new axis. As you can see in the "Actual Outcome" on the right the Y-axis' label is x when it should be y. After tracing through the code I discovered that during the creation of the AxisArtist object (which is what ax.axis is in the example above) it uses a variable called axis_direction to determine whether to assign a X-axis or Y-axis to the AxisArtist. This can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L973">here</a>. The problem was that this axis_direction variable wasn't being passed into the constructor of AxisArtist if you create it using SubplotZero(). So to fix this issue I passed the axis_direction variable into the constructor. You can see the fix <a href="https://github.com/desainis/matplotlib/commit/4079729f73eda76f5a1bddfc8d3b932aba3a10cc">here</a>.</p>
+                            <p> Issue #7617 states that when creating new a new Y-axis
+                                using SubplotZero(), set_ylabel() (which is called
+                                by plt.ylabel()) does not change the ylabel on the
+                                new axis. As you can see in the "Actual Outcome"
+                                on the right the Y-axis' label is x when it should
+                                be y. After tracing through the code I discovered
+                                that during the creation of the AxisArtist object
+                                (which is what ax.axis is in the example above) it
+                                uses a variable called axis_direction to determine
+                                whether to assign a X-axis or Y-axis to the AxisArtist.
+                                This can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L973">here</a>.
+                                The problem was that this axis_direction variable
+                                wasn't being passed into the constructor of AxisArtist
+                                if you create it using SubplotZero(). So to fix this
+                                issue I passed the axis_direction variable into the
+                                constructor. You can see the fix <a href="https://github.com/desainis/matplotlib/commit/4079729f73eda76f5a1bddfc8d3b932aba3a10cc">here</a>.</p>
 
+                        </div>
                     </div>
-                </div>
-            </section> 
-        </div>
+                    <div class="col-lg-12" style="display:inline-block;width:60vw">
+                        <div class="col-lg-6" style="display:inline-block">
+                            <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
+                            <pre style="width:26vw"><code class = "python">>>> import matplotlib.pyplot as plt
+>>> from matplotlib import figure
+>>> a=figure.AxesStack()
+>>> a.add('123',plt.figure().add_subplot(111))
+<matplotlib.axes._subplots.AxesSubplot object at 0x106f97860>
+>>> a._elements
+[('123', (1, <matplotlib.axes._subplots.AxesSubplot object at 0x106f97860>))]
+>>> a.add('123',plt.figure().add_subplot(111))
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/figure.py:131: UserWarning: key 123 already existed; Axes is being replaced
+  "key %s already existed; Axes is being replaced" % key)
+<matplotlib.axes._subplots.AxesSubplot object at 0x10b7d43c8>
+</code></pre>
 
-        <!-- Footer -->
-        <section id="footer">
-            <div class="container">
-                <ul class="copyright">
-                    <li>&copy; Forkestra. All rights reserved.</li>
-                    <li>Design: <a href="http://html5up.net">HTML5 UP</a>
-                    </li>
-                </ul>
+                            <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
+                            <pre style="width:26vw"><code class="python">>>>> import matplotlib.pyplot as plt
+>>> from matplotlib import figure
+>>> a=figure.AxesStack()
+>>> a.add('123',plt.figure().add_subplot(111))
+<matplotlib.axes._subplots.AxesSubplot object at 0x108712860>
+>>> a._elements
+[('123', (1, <matplotlib.axes._subplots.AxesSubplot object at 0x108712860>))]
+>>> a.add('123',plt.figure().add_subplot(111))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/figure.py", line 129, in add
+    Stack.remove(self, (key, a_existing))
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/cbook.py", line 1391, in remove
+    raise ValueError('Unknown element o')
+ValueError: Unknown element o
+                            </code></pre>
+                        </div>
+                        <div style="padding-left:5vw" class="col-lg-6" style="display:inline-block">
+                            <h4><u>Issue #7194</u></h4>
+                            <p>Matplotlib contains an AxesStack, which as implied by
+                                its name is a stack that contains the Axes that are
+                                used in drawing a particular Figure. As one would expect,
+                                the stack contains methods add and remove from the stack
+                                (particularly the methods "remove" and "add" in
+                                <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/figure.py#L111">figure.py</a>).
+                                This particular bug deals with a case where when you add a subplot to the AxesStack with the same
+                                key an error is returned rather than the appropriate warning. Note, that this is not the
+                                expected behaviour as per the issue 7194 and the appropriate documentation in the
+                                "add" function itself. The problem is that the data stored in the AxesStack is not the
+                                the same that is expected by parent class's (Stack) remove method which throws an "Unknown element
+                                o" error.
+                            </p>
+                        </div>
+                    </div>
+            </section>
             </div>
-        </section>
 
-    </div>
+            <!-- Footer -->
+            <section id="footer">
+                <div class="container">
+                    <ul class="copyright">
+                        <li>&copy; Forkestra. All rights reserved.</li>
+                        <li>Design: <a href="http://html5up.net">HTML5 UP</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollzer.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/skel.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-    <script src="assets/js/main.js"></script>
+            </div>
+
+            <!-- Scripts -->
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/jquery.scrollzer.min.js"></script>
+            <script src="assets/js/jquery.scrolly.min.js"></script>
+            <script src="assets/js/skel.min.js"></script>
+            <script src="assets/js/util.js"></script>
+            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+            <script src="assets/js/main.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+            <script>hljs.initHighlightingOnLoad();</script>
 
 </body>
 
