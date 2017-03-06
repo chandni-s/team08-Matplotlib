@@ -567,10 +567,10 @@
                             and set_ylim was out of bounds. Currently, a User Warning is being raised in which case
                             the subgraph still gets generated however there is no data displayed on it. It is recommended
                             to raise a ValueError which would keep it consistent with other similar errors. Upon thoroughly
-                            investigating this issue, it turns out that making changes in function set_xlim and set_ylim
-                            in ~/matplotlib/lib/matplotlib/axes/_base.py would resolve this issue.</p>
+                            investigating this issue, it turns out that making changes in function <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_base.py#L2895">set_xlim</a> and <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_base.py#L3191">set_ylim</a>
+                            would resolve this issue.</p>
                         <!-- Steven-->
-                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a></b>                            Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS,
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a> <i><u>FIXED</u></i></b>                            Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS,
                             It seems like when you want to create more than 910 Elements
                             in the date_list(their example) it causes the x-ticks
                             to exceed 1000 and throw an error. The issue can be easily
@@ -698,6 +698,20 @@ ValueError: Unknown element o</b>
                             </p>
                         </div>
                     </div>
+                    <h3>Fixed Issues</h3>
+                    <div class="col-lg-12" style="display:inline-block;width:60vw">
+                        <div class="col-lg-6" style="display:inline-block">
+                            <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
+                            <img src="images/8089_good.png" class="tool-img">
+
+                            <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
+                            <img src="images/8089_error.png" class="tool-img">
+                        </div>
+                        <div class="col-lg-6" style="display:inline-block">
+                            <h4><u>Issue #8089</u></h4>
+                            <p>In matplotlib when creating an object to show on screen the artist takes in parameters from pyplot and creates them accordingly. However, because of screen limitations when trying to plot a certain number of ticks (greater than 910) on the screen it will throw a run time error. This is because during the early stages of the project they had to limit the amounts of ticks on screen to save memory and space for the program; however as things evovled the limit eventually became a hinderance as computers have more memory and space. The problem lies in the function raise_if_exceeds that is in the <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/ticker.py#L1432">ticker.py</a> file under the locator class. This function throws an runtime error if it exceeds the MAXTICKS variable to save space, the solution we found was that it seemed like the function was no longer needed so it was safe for us to remove the check within the function. some downsides to this fix is that if exceeded enough if can eventually use up alot of memory, some upsides are that it allows people to plot their graph with more detail. </p>
+
+                        </div>
             </section>
             </div>
 
