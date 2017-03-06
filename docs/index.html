@@ -562,13 +562,12 @@
                             figure.py, it should throw a warning and remove the previous
                             entry.(explained in more detail below)</p>
                         <!-- Chandni-->
-                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7460">Issue #7460:</a></b>                            Raise an appropriate ValueError if the limit set to set_xlim
-                            and set_ylim was out of bounds. Currently, the Value
-                            Error being raised is not much help as it only says “Unrecognized
-                            kwargs” (function line:2807 under ~/matplotlib/lib/matplotlib/axes/_base.py)
-                            whereas it would be beneficial to have meaningful ValueErrors
-                            (or better treat them as None so program doesn’t crash
-                            after execution).</p>
+                        <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7733">Issue #7733:</a></b>                            Raise an appropriate ValueError if the limit set to set_xlim
+                            and set_ylim was out of bounds. Currently, a User Warning is being raised in which case
+                            the subgraph still gets generated however there is no data displayed on it. It is recommended
+                            to raise a ValueError which would keep it consistent with other similar errors. Upon thoroughly
+                            investigating this issue, it turns out that making changes in function set_xlim and set_ylim
+                            in ~/matplotlib/lib/matplotlib/axes/_base.py would resolve this issue.</p>
                         <!-- Steven-->
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a></b>                            Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS,
                             It seems like when you want to create more than 910 Elements
