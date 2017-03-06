@@ -321,8 +321,9 @@
                             to do versus time. The outstanding work (or backlog)
                             is often on the vertical axis, with time along the horizontal.
                             That is, it is a run chart of outstanding work. It is
-                            useful for predicting when all of the work will be completed.</p>
-                        <a class="btn btn-primary" href="burndown.html" target="_blank">Burndown Chart</a>
+                            useful for predicting when all of the work will be completed. Since this delieverable was only bug fixes we did not add
+                            story points to our trello cards. Thus, we can not generate a burndown chart via Nishant's script.</p>
+                        <!-- <a class="btn disabled" href="burndown.html" target="_blank">Burndown Chart</a> -->
                         <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 10th 2017</a>
                     </div>
                     <div style="display:inline-block; margin-bottom:10px">
@@ -591,16 +592,17 @@
             <section id="Fixed">
                 <div class="container">
                     <h3>Fixed Issues</h3>
-                    <div class="col-lg-12" style="display:inline-block;width:60vw">
-                        <div class="col-lg-6" style="display:inline-block">
+                    <div class="col-lg-12" style="display:inline-block;">
+                    <h4><u>Issue #7617</u></h4>
+                        <div class="col-lg-4" style="display:inline-block;">
                             <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
                             <img src="images/jacob_issue_expected.png" class="tool-img">
 
                             <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
                             <img src="images/jacob_issue_actual.png" class="tool-img">
                         </div>
-                        <div class="col-lg-6" style="display:inline-block">
-                            <h4><u>Issue #7617</u></h4>
+                        <div class="col-lg-4" style="display:inline-block">
+                            
                             <p>For basic users, Matplotlib hides away all of the important
                                 drawing resources in the Artist and Backend layers
                                 by giving them the scripting layer to work off of.
@@ -623,7 +625,8 @@ ax.axis["xzero"].set_visible(True)
                             </code></pre>
                             <p>This would draw another X-axis on top of the Axes the
                                 SubplotZero() returned</p>
-
+                        </div>
+                        <div class="col-lg-4" style="display:inline-block">
                             <p> Issue #7617 states that when creating new a new Y-axis
                                 using SubplotZero(), set_ylabel() (which is called
                                 by plt.ylabel()) does not change the ylabel on the
@@ -643,10 +646,11 @@ ax.axis["xzero"].set_visible(True)
 
                         </div>
                     </div>
-                    <div class="col-lg-12" style="display:inline-block;width:60vw">
-                        <div class="col-lg-6" style="display:inline-block">
+                    <div class="col-lg-12" style="display:inline-block;margin-top:50px;">
+                        <h4><u>Issue #7194</u></h4>
+                        <div class="col-lg-4" style="display:inline-block">
                             <p style="margin-bottom:-10px" class="tool-img">Expected Outcome</p>
-                            <pre style="width:26vw"><code class = "python">>>> import matplotlib.pyplot as plt
+                            <pre ><code class = "python">>>> import matplotlib.pyplot as plt
 >>> from matplotlib import figure
 >>> a=figure.AxesStack()
 >>> a.add('123',plt.figure().add_subplot(111))
@@ -654,13 +658,14 @@ ax.axis["xzero"].set_visible(True)
 >>> a._elements
 [('123', (1, <matplotlib.axes._subplots.AxesSubplot object at 0x106f97860>))]
 >>> a.add('123',plt.figure().add_subplot(111))
-/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/figure.py:131: UserWarning: key 123 already existed; Axes is being replaced
-  "key %s already existed; Axes is being replaced" % key)
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/figure.py:131: <b style="background-color:yellow">UserWarning: key 123 already existed; Axes is being replaced
+  "key %s already existed; Axes is being replaced" % key)</b>
 <matplotlib.axes._subplots.AxesSubplot object at 0x10b7d43c8>
 </code></pre>
-
+                        </div>
+                        <div class="col-lg-4" style="display:inline-block">
                             <p style="margin-bottom:-10px" class="tool-img">Actual Outcome</p>
-                            <pre style="width:26vw"><code class="python">>>>> import matplotlib.pyplot as plt
+                            <pre><code class="python">>>>> import matplotlib.pyplot as plt
 >>> from matplotlib import figure
 >>> a=figure.AxesStack()
 >>> a.add('123',plt.figure().add_subplot(111))
@@ -670,15 +675,14 @@ ax.axis["xzero"].set_visible(True)
 >>> a.add('123',plt.figure().add_subplot(111))
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/figure.py", line 129, in add
+  <b style="background-color:yellow">File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/figure.py", line 129, in add
     Stack.remove(self, (key, a_existing))
   File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/matplotlib/cbook.py", line 1391, in remove
     raise ValueError('Unknown element o')
-ValueError: Unknown element o
+ValueError: Unknown element o</b>
                             </code></pre>
                         </div>
-                        <div style="padding-left:5vw" class="col-lg-6" style="display:inline-block">
-                            <h4><u>Issue #7194</u></h4>
+                        <div class="col-lg-4" style="display:inline-block">
                             <p>Matplotlib contains an AxesStack, which as implied by
                                 its name is a stack that contains the Axes that are
                                 used in drawing a particular Figure. As one would expect,
@@ -718,8 +722,8 @@ ValueError: Unknown element o
             <script src="assets/js/util.js"></script>
             <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
             <script src="assets/js/main.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-            <script>hljs.initHighlightingOnLoad();</script>
+<!--             <script src=".//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+            <script>hljs.initHighlightingOnLoad();</script> -->
 
 </body>
 
