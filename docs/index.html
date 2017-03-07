@@ -565,7 +565,7 @@
                         <!-- Chandni-->
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7733">Issue #7733:</a></b>                            Raise an appropriate ValueError if the limit set to set_xlim
                             and set_ylim was out of bounds. Currently, a User Warning is being raised in which case
-                            the subgraph still gets generated however there is no data displayed on it. It is recommended
+                            the subgraph still gets generated. However, there is no data displayed on it. It is recommended
                             to raise a ValueError which would keep it consistent with other similar errors. Upon thoroughly
                             investigating this issue, it turns out that making changes in function <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_base.py#L2895">set_xlim</a> and <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_base.py#L3191">set_ylim</a>
                             would resolve this issue.</p>
@@ -576,7 +576,7 @@
                             to exceed 1000 and throw an error. The issue can be easily
                             fixed by increasing the limit of the Constant variable
                             but however the more recent code seems that it could
-                            create memory problems in the program.</p>
+                            create memory problems in the program. (explained in more detail below)</p>
                         <!-- Henry-->
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7112">Issue #7112:</a></b>                            It seems that shifts on the values in the axes cannot
                             be set on the parallel direction to the respective axis.
