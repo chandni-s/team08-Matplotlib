@@ -46,9 +46,14 @@
                 <li><a href="#designPattern">Design Patterns</a>
                 </li> -->
                 <!-- D3 -->
-                <li><a href="#Investigate">Investigated Issues</a>
+                <!-- <li><a href="#Investigate">Investigated Issues</a>
                 </li>
                 <li><a href="#Fixed">Fixed Issues</a>
+                </li> -->
+                <!-- D4 -->
+                <li><a href="#Issue1">Issue #8236</a>
+                </li>
+                <li><a href="#Issue2">Issue #6208</a>
                 </li>
             </ul>
         </nav>
@@ -546,30 +551,30 @@
                 </div>
             </section> -->
             <!-- D3 -->
-            <section id="Investigate">
+            <!-- <section id="Investigate">
                 <div class="container">
                     <h3>Investigated Issues</h3>
 
                     <div class="col-lg-12" style="display:inline-block">
-                        <!-- Jacob-->
+                         Jacob
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7617#issuecomment-281233218">Issue #7617</a> <i><u>FIXED</u></i>:</b>                            set_ylabel() doesn't work with AxesZeroSubplots. The
                             problem was that AxesZeroSubplot() sets both axis to
                             be instances of Xaxis. (explained in more detail below)</p>
-                        <!-- Nishant-->
+                        Nishant
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7194">Issue #7194</a> <i><u>FIXED</u></i>:</b>                            When adding an existing subplot into the AxesStack, an
                             error is thrown due to an existing variable being of
                             type Axes and the entry trying to be removed is of type
                             tuple (key, Axes). According to the logic provided in
                             figure.py, it should throw a warning and remove the previous
                             entry.(explained in more detail below)</p>
-                        <!-- Chandni-->
+                        Chandni
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7733">Issue #7733:</a></b>                            Raise an appropriate ValueError if the limit set to set_xlim
                             and set_ylim was out of bounds. Currently, a User Warning is being raised in which case
                             the subgraph still gets generated. However, there is no data displayed on it. It is recommended
                             to raise a ValueError which would keep it consistent with other similar errors. Upon thoroughly
                             investigating this issue, it turns out that making changes in function <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_base.py#L2895">set_xlim</a> and <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_base.py#L3191">set_ylim</a>
                             would resolve this issue.</p>
-                        <!-- Steven-->
+                        Steven
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/8089">Issue #8089:</a> <i><u>FIXED</u></i></b>                            Using Minute Locator to set x-axis ticks exceeds Locator.MAXTICKS,
                             It seems like when you want to create more than 910 Elements
                             in the date_list(their example) it causes the x-ticks
@@ -577,7 +582,7 @@
                             fixed by increasing the limit of the Constant variable
                             but however the more recent code seems that it could
                             create memory problems in the program. (explained in more detail below)</p>
-                        <!-- Henry-->
+                        Henry
                         <p><b><a href="https://github.com/matplotlib/matplotlib/issues/7112">Issue #7112:</a></b>                            It seems that shifts on the values in the axes cannot
                             be set on the parallel direction to the respective axis.
                             Eg. a shift vertically on a tick in the y axis does not
@@ -712,6 +717,49 @@ ValueError: Unknown element o</b>
                             <p>In matplotlib when creating an object to show on screen the artist takes in parameters from pyplot and creates them accordingly. However, because of screen limitations when trying to plot a certain number of ticks (greater than 910) on the screen it will throw a run time error. This is because during the early stages of the project they had to limit the amounts of ticks on screen to save memory and space for the program; however as things evovled the limit eventually became a hinderance as computers have more memory and space. The problem lies in the function raise_if_exceeds that is in the <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/ticker.py#L1432">ticker.py</a> file under the locator class. This function throws an runtime error if it exceeds the MAXTICKS variable to save space, the solution we found was that it seemed like the function was no longer needed so it was safe for us to remove the check within the function. some downsides to this fix is that if exceeded enough if can eventually use up alot of memory, some upsides are that it allows people to plot their graph with more detail. </p>
 
                         </div>
+            </section> -->
+            <!-- D4 -->
+            <section id="Issue1">
+                <div class="container">
+                    <h3>Issue #8236</h3>
+
+                    <div class="col-lg-12" style="display:inline-block">
+                    <h4>High Level description</h4>
+	                    <div class="col-lg-6" style="display:inline-block">
+	                    <!-- 	<img src="images/annotation_basic.png" class="tool-img">
+							<p style="font-size:10pt;" class="tool-img">Figure 1-1</p> -->
+	                    	<img src="images/8236_example.png" class="tool-img">
+	                    	<!-- <p style="font-size:10pt;" class="tool-img">Figure 1-2</p> -->
+	                    </div>
+	                    <div class="col-lg-6" style="display:inline-block">
+	                    	<p>For our first issue we decided to fix issue #8236 which is about adding annotations to legends. An annotation is generally used bring attention to a particular part of a figure by having an arrow point it and a small amount of text to contextualize it. This is not always the case though. Matplotlib's annotations are completely customizable to be any size, placement and style; similar to that of any 2D Line. Therefore, you can use them to represent certain pieces of data such as distance, error margins, or to display increases/decreases over time. When you are doing this you might not want to clutter your figure with text and instead move the text to the legend. As an example, you can see on the image to the left that the user has used an annotation arrow to represent the distance between two lines but does not wish to label the arrow on the figure. As it stands right now there is no way to add an annotation to the legend. </p>
+							<p>In matplotlib when you want to append to your legend you add the "label" key arguement to any plot declaration you make. For example:</p>
+	                    	<pre>
+	plt.plot([0, 1], [0, 0], label='line1')
+	plt.legend()
+	                    	</pre>
+	                    	<p>This will create a line and a note on your legend called "line 1". When you do this for an annotation nothing happens. Our objective is to add this feature to annotations.</p>
+                    	</div>
+                    </div>
+                    <div class="col-lg-12" style="display:inline-block">
+                    <h4>Detailed description</h4>
+	                    <div class="col-lg-6" style="display:inline-block">
+	                    <img src="images/8236_UML.png" class="tool-img">
+	                    <img src="images/8236_sequence.png" class="tool-img">
+	                    </div>
+	                    <div class="col-lg-6" style="display:inline-block">
+	                    	<p>When planning to add to the legend functionality, one has to understand how legends are built and structured. First of all, Axes contain Legends and Legends contain something called a Legend Handler. Legend Handlers are what actually create the artists that know how to draw the shapes onto the legend. For us to grant the ability to put annotations on legends we would have to write a legend handler for annotations as there currently isn't one. Annotations are considered to be types of text which inherits from Artist; this makes Annotation a type of artist as well. It follows that our legend handler would have to create a new instance of Annotation based on all the aethstetic information the user inputed such as style and colour, but with new structural information such as size and angle to make it fit inside a legend.</p> 
+	                    	<p>Note that, Legends aren't initialized until a call to plt.legend() is made. Plotting a line and giving the "label" key arguement will put that Line into the curent Axes' lines field but will not begin to create the legend. When plt.legend() is called the current Axes will begin to initialize its legend_ field by making a call to get_legend_handles(). This pulls out all the default handlers from the legend class and creates a new list called handles_original consisting of all the current axes' lines, patches, collections, and containers. It then loops through this new list and grabs all handlers for the the elements where a label key argument has been defined. You can see that code <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_axes.py#L259">here</a>. Using that information it finally instantiates a legend with the handlers as a parameter. During the initialization process the handler's create_artists function is called and the newly created artist is returned and stored in the legend's handler_list field to be used during rendering. You can see a visual representation of this process in the sequence diagram on the left.</p>
+	                    	<p> To implement this feature we need to accomplish two major things. Right now when an annotation is defined it is stored in the Axes' texts field. So, we need to find a way to differentiate between annotations and any other types of text. To do that we need to either create an annotations field or add logic to the creation of the handles_original variable to only take annotations out of the text field at the time of legend instantiation. And of course we would need to write a legend handler for annotations which I described above. </p>
+                    	</div>
+                    </div>
+            </section>
+            <section id="Issue2">
+                <div class="container">
+                    <h3>Issue #6208</h3>
+
+                    <div class="col-lg-12" style="display:inline-block">
+                    </div>
             </section>
             </div>
 
