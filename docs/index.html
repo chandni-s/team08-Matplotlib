@@ -753,6 +753,12 @@ ValueError: Unknown element o</b>
 	                    	<p> To implement this feature we need to accomplish two major things. Right now when an annotation is defined it is stored in the Axes' texts field. So, we need to find a way to differentiate between annotations and any other types of text. To do that we need to either create an annotations field or add logic to the creation of the handles_original variable to only take annotations out of the text field at the time of legend instantiation. And of course we would need to write a legend handler for annotations which I described above. </p>
                     	</div>
                     </div>
+                    <div class="col-lg-12" style="display:inline-block">
+                        <h4>Acceptance Tests</h4>
+                        <p>We decided to immplement this issue for the final part of this project. "Explain why we chose to implement this bug over the other one here". Since this bug involves annotations, our acceptance tests would involve creating everytype of style of annotation and checking if they appear in the legend box. They are based on the documentation in the Annotation class that can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/text.py#L2060">here</a>. An annotation Arrow consists of different set styles such as 'wedge', 'fancy', or just '->'. We have to confirm if that arrow created in the legend matches that of the arrow created in the figure and that the label inputed matches the text that appears in the legend box (that is why every label is different). you can see the tests here:</p>
+
+                        <a href='' class='btn btn-primary'>Tests</a>
+                    </div>
             </section>
             <section id="Issue2">
                 <div class="container">
