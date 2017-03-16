@@ -326,8 +326,10 @@
                             to do versus time. The outstanding work (or backlog)
                             is often on the vertical axis, with time along the horizontal.
                             That is, it is a run chart of outstanding work. It is
-                            useful for predicting when all of the work will be completed. Since this delieverable was only bug fixes we did not add
-                            story points to our trello cards. Thus, we can not generate a burndown chart via Nishant's script.</p>
+                            useful for predicting when all of the work will be completed.
+                            Since this delieverable was only bug fixes we did not
+                            add story points to our trello cards. Thus, we can not
+                            generate a burndown chart via Nishant's script.</p>
                         <!-- <a class="btn disabled" href="burndown.html" target="_blank">Burndown Chart</a> -->
                         <a class="btn btn-primary" href="images/burndown_static.png" target="_blank">Burndown Chart Feb 20th 2017</a>
                     </div>
@@ -724,38 +726,118 @@ ValueError: Unknown element o</b>
                     <h3>Issue #8236</h3>
 
                     <div class="col-lg-12" style="display:inline-block">
-                    <h4>High Level description</h4>
-	                    <div class="col-lg-6" style="display:inline-block">
-	                    <!-- 	<img src="images/annotation_basic.png" class="tool-img">
+                        <h4>High Level description</h4>
+                        <div class="col-lg-6" style="display:inline-block">
+                            <!-- 	<img src="images/annotation_basic.png" class="tool-img">
 							<p style="font-size:10pt;" class="tool-img">Figure 1-1</p> -->
-	                    	<img src="images/8236_example.png" class="tool-img">
-	                    	<!-- <p style="font-size:10pt;" class="tool-img">Figure 1-2</p> -->
-	                    </div>
-	                    <div class="col-lg-6" style="display:inline-block">
-	                    	<p>For our first issue we decided to fix issue #8236 which is about adding annotations to legends. An annotation is generally used bring attention to a particular part of a figure by having an arrow point it and a small amount of text to contextualize it. This is not always the case though. Matplotlib's annotations are completely customizable to be any size, placement and style; similar to that of any 2D Line. Therefore, you can use them to represent certain pieces of data such as distance, error margins, or to display increases/decreases over time. When you are doing this you might not want to clutter your figure with text and instead move the text to the legend. As an example, you can see on the image to the left that the user has used an annotation arrow to represent the distance between two lines but does not wish to label the arrow on the figure. As it stands right now there is no way to add an annotation to the legend. </p>
-							<p>In matplotlib when you want to append to your legend you add the "label" key arguement to any plot declaration you make. For example:</p>
-	                    	<pre>
+                            <img src="images/8236_example.png" class="tool-img">
+                            <!-- <p style="font-size:10pt;" class="tool-img">Figure 1-2</p> -->
+                        </div>
+                        <div class="col-lg-6" style="display:inline-block">
+                            <p>For our first issue we decided to fix issue #8236 which
+                                is about adding annotations to legends. An annotation
+                                is generally used bring attention to a particular
+                                part of a figure by having an arrow point it and
+                                a small amount of text to contextualize it. This
+                                is not always the case though. Matplotlib's annotations
+                                are completely customizable to be any size, placement
+                                and style; similar to that of any 2D Line. Therefore,
+                                you can use them to represent certain pieces of data
+                                such as distance, error margins, or to display increases/decreases
+                                over time. When you are doing this you might not
+                                want to clutter your figure with text and instead
+                                move the text to the legend. As an example, you can
+                                see on the image to the left that the user has used
+                                an annotation arrow to represent the distance between
+                                two lines but does not wish to label the arrow on
+                                the figure. As it stands right now there is no way
+                                to add an annotation to the legend. </p>
+                            <p>In matplotlib when you want to append to your legend
+                                you add the "label" key arguement to any plot declaration
+                                you make. For example:</p>
+                            <pre>
 	plt.plot([0, 1], [0, 0], label='line1')
 	plt.legend()
 	                    	</pre>
-	                    	<p>This will create a line and a note on your legend called "line 1". When you do this for an annotation nothing happens. Our objective is to add this feature to annotations.</p>
-                    	</div>
+                            <p>This will create a line and a note on your legend called
+                                "line 1". When you do this for an annotation nothing
+                                happens. Our objective is to add this feature to
+                                annotations.</p>
+                        </div>
                     </div>
                     <div class="col-lg-12" style="display:inline-block">
-                    <h4>Detailed description</h4>
-	                    <div class="col-lg-6" style="display:inline-block">
-	                    <img src="images/8236_UML.png" class="tool-img">
-	                    <img src="images/8236_sequence.png" class="tool-img">
-	                    </div>
-	                    <div class="col-lg-6" style="display:inline-block">
-	                    	<p>When planning to add to the legend functionality, one has to understand how legends are built and structured. First of all, Axes contain Legends and Legends contain something called a Legend Handler. Legend Handlers are what actually create the artists that know how to draw the shapes onto the legend. For us to grant the ability to put annotations on legends we would have to write a legend handler for annotations as there currently isn't one. Annotations are considered to be types of text which inherits from Artist; this makes Annotation a type of artist as well. It follows that our legend handler would have to create a new instance of Annotation based on all the aethstetic information the user inputed such as style and colour, but with new structural information such as size and angle to make it fit inside a legend.</p> 
-	                    	<p>Note that, Legends aren't initialized until a call to plt.legend() is made. Plotting a line and giving the "label" key arguement will put that Line into the curent Axes' lines field but will not begin to create the legend. When plt.legend() is called the current Axes will begin to initialize its legend_ field by making a call to get_legend_handles(). This pulls out all the default handlers from the legend class and creates a new list called handles_original consisting of all the current axes' lines, patches, collections, and containers. It then loops through this new list and grabs all handlers for the the elements where a label key argument has been defined. You can see that code <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_axes.py#L259">here</a>. Using that information it finally instantiates a legend with the handlers as a parameter. During the initialization process the handler's create_artists function is called and the newly created artist is returned and stored in the legend's handler_list field to be used during rendering. You can see a visual representation of this process in the sequence diagram on the left.</p>
-	                    	<p> To implement this feature we need to accomplish two major things. Right now when an annotation is defined it is stored in the Axes' texts field. So, we need to find a way to differentiate between annotations and any other types of text. To do that we need to either create an annotations field or add logic to the creation of the handles_original variable to only take annotations out of the text field at the time of legend instantiation. And of course we would need to write a legend handler for annotations which I described above. </p>
-                    	</div>
+                        <h4>Detailed description</h4>
+                        <div class="col-lg-6" style="display:inline-block">
+                            <img src="images/8236_UML.png" class="tool-img">
+                            <img src="images/8236_sequence.png" class="tool-img">
+                        </div>
+                        <div class="col-lg-6" style="display:inline-block">
+                            <p>When planning to add to the legend functionality, one
+                                has to understand how legends are built and structured.
+                                First of all, Axes contain Legends and Legends contain
+                                something called a Legend Handler. Legend Handlers
+                                are what actually create the artists that know how
+                                to draw the shapes onto the legend. For us to grant
+                                the ability to put annotations on legends we would
+                                have to write a legend handler for annotations as
+                                there currently isn't one. Annotations are considered
+                                to be types of text which inherits from Artist; this
+                                makes Annotation a type of artist as well. It follows
+                                that our legend handler would have to create a new
+                                instance of Annotation based on all the aethstetic
+                                information the user inputed such as style and colour,
+                                but with new structural information such as size
+                                and angle to make it fit inside a legend.</p>
+                            <p>Note that, Legends aren't initialized until a call to
+                                plt.legend() is made. Plotting a line and giving
+                                the "label" key arguement will put that Line into
+                                the curent Axes' lines field but will not begin to
+                                create the legend. When plt.legend() is called the
+                                current Axes will begin to initialize its legend_
+                                field by making a call to get_legend_handles(). This
+                                pulls out all the default handlers from the legend
+                                class and creates a new list called handles_original
+                                consisting of all the current axes' lines, patches,
+                                collections, and containers. It then loops through
+                                this new list and grabs all handlers for the the
+                                elements where a label key argument has been defined.
+                                You can see that code <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/axes/_axes.py#L259">here</a>.
+                                Using that information it finally instantiates a
+                                legend with the handlers as a parameter. During the
+                                initialization process the handler's create_artists
+                                function is called and the newly created artist is
+                                returned and stored in the legend's handler_list
+                                field to be used during rendering. You can see a
+                                visual representation of this process in the sequence
+                                diagram on the left.</p>
+                            <p> To implement this feature we need to accomplish two major
+                                things. Right now when an annotation is defined it
+                                is stored in the Axes' texts field. So, we need to
+                                find a way to differentiate between annotations and
+                                any other types of text. To do that we need to either
+                                create an annotations field or add logic to the creation
+                                of the handles_original variable to only take annotations
+                                out of the text field at the time of legend instantiation.
+                                And of course we would need to write a legend handler
+                                for annotations which I described above. </p>
+                        </div>
                     </div>
                     <div class="col-lg-12" style="display:inline-block">
                         <h4>Acceptance Tests</h4>
-                        <p>We decided to immplement this issue for the final part of this project. "Explain why we chose to implement this bug over the other one here". Since this bug involves annotations, our acceptance tests would involve creating everytype of style of annotation and checking if they appear in the legend box. They are based on the documentation in the Annotation class that can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/text.py#L2060">here</a>. An annotation Arrow consists of different set styles such as 'wedge', 'fancy', or just '->'. We have to confirm if that arrow created in the legend matches that of the arrow created in the figure and that the label inputed matches the text that appears in the legend box (that is why every label is different). you can see the tests here:</p>
+                        <p>We decided to immplement this issue for the final part of
+                            this project. "Explain why we chose to implement this
+                            bug over the other one here". Since this bug involves
+                            annotations, our acceptance tests would involve creating
+                            everytype of style of annotation and checking if they
+                            appear in the legend box. They are based on the documentation
+                            in the Annotation class that can be seen <a href="https://github.com/desainis/matplotlib/blob/master/lib/matplotlib/text.py#L2060">here</a>.
+                            An annotation Arrow consists of different set styles
+                            such as 'wedge', 'fancy', or just '->'. We have to confirm
+                            if that arrow created in the legend matches that of the
+                            arrow created in the figure and that the label inputed
+                            matches the text that appears in the legend box (that
+                            is why every label is different). you can see the tests
+                            here:</p>
 
                         <a href='' class='btn btn-primary'>Tests</a>
                     </div>
@@ -764,12 +846,22 @@ ValueError: Unknown element o</b>
                 <div class="container">
                     <h3>Issue #6830</h3>
                     <h4>High Level description</h4>
-                        <div class="col-lg-12" style="display:inline-block">
-						<div class="col-lg-6" style="display:inline-block">
+                    <div class="col-lg-12" style="display:inline-block">
+                        <div class="col-lg-6" style="display:inline-block">
                             <img src="images/parasite_simple.png" class="tool-img">
+                            <img src="images/6830 UML.png" class="tool-img">
                         </div>
                         <div class="col-lg-6" style="display:inline-block">
-                            <p>One of matplotlibs main attractions is the fact that you can customize your graph depending on what you need. For our 2nd Issue we are focusing on Issue number #6830 which is about rotating and customizing labels while using parasite axes. Parasite axes in MPL are basically regular axes but with the allowance of more customization, one of the main reasons why people use parasite axes is the fact that it can allow people to have multiple Y axes in your graph.  </p>
+                            <p>One of matplotlibs main attractions is the fact that
+                                you can customize your graph depending on what you
+                                need. For our 2nd Issue we are focusing on Issue
+                                number #6830 which is about rotating and customizing
+                                labels while using parasite axes. Parasite axes in
+                                MPL are basically regular axes but with the allowance
+                                of more customization, one of the main reasons why
+                                people use parasite axes is the fact that it can
+                                allow people to have multiple Y axes in your graph.
+                                </p>
                             <p>On the left you can see an Example of Parasite axes</p>
                             <pre>
 from mpl_toolkits.axes_grid1 import host_subplot
@@ -797,43 +889,76 @@ leg.texts[1].set_color(p2.get_color())
 plt.show()
                             </pre>
                         </div>
-                            
-                        <div class="col-lg-12" style="display:inline-block">
-                        	<h4>Detailed description</h4>
-                            <p>To create a parasitic axes you must create a host subplot that can host the axes so it knows where to show up on the screen. When creating a parasite axe you must call the host_subplot function, this function takes in any number of arguments and creates a host subplot based on them, it does this by taking every argument and throwing it through a host_subplot_factory which it uses to add on to the subplot class it is trying to host on. I takes in each argument that is given and passes it through host_axes_class_factory and subplot_class_factory to turn into a regular subplot with those adjustments.</p> 
-                            <p>In Issue #6830 the problem comes from one of the arguments when trying to instantiate a host_subplot, when the argument "rotation" is passed in it should rotate the x-axis over to another axis (for example rotation=45 should rotate the axis to the axis on the its right) however in its current form this functionality does not work.</p>
-                            <p> When trying to find the error in this issue it is clear to see that the issue lies within the host_subplot function, when it takes in the argument rotation, it is not properly translating that over to the subplot from within the host_subplot_factory function. to Implement this fix we would need to trace the function of host_subplot_factory and see where the variable gets lost, from our first initial thoughts we think that the problem lies within the host_axes_class that is called in the host_subplot_factory function, this is because it is likely that the variable is lost before it even makes it to the subplot class factory as it uses its default value rather than gives an error. we would need to go through the code and find a way to properly translate the argument over so that subplot_class_factory can read it and append it on the subplot properly. </p>
-                        </div>
-                    </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12" style="display:inline-block">
-                    </div>
-            </section>
-            </div>
 
-            <!-- Footer -->
-            <section id="footer">
-                <div class="container">
-                    <ul class="copyright">
-                        <li>&copy; Forkestra. All rights reserved.</li>
-                        <li>Design: <a href="http://html5up.net">HTML5 UP</a>
-                        </li>
-                    </ul>
+                        <div class="col-lg-12" style="display:inline-block">
+                            <h4>Detailed description</h4>
+                            <p>To create a parasitic axes you must create a host subplot
+                                that can host the axes so it knows where to show
+                                up on the screen. When creating a parasite axe you
+                                must call the host_subplot function, this function
+                                takes in any number of arguments and creates a host
+                                subplot based on them, it does this by taking every
+                                argument and throwing it through a host_subplot_factory
+                                which it uses to add on to the subplot class it is
+                                trying to host on. I takes in each argument that
+                                is given and passes it through host_axes_class_factory
+                                and subplot_class_factory to turn into a regular
+                                subplot with those adjustments.</p>
+                            <p>In Issue #6830 the problem comes from one of the arguments
+                                when trying to instantiate a host_subplot, when the
+                                argument "rotation" is passed in it should rotate
+                                the x-axis over to another axis (for example rotation=45
+                                should rotate the axis to the axis on the its right)
+                                however in its current form this functionality does
+                                not work.</p>
+                            <p> When trying to find the error in this issue it is clear
+                                to see that the issue lies within the host_subplot
+                                function, when it takes in the argument rotation,
+                                it is not properly translating that over to the subplot
+                                from within the host_subplot_factory function. to
+                                Implement this fix we would need to trace the function
+                                of host_subplot_factory and see where the variable
+                                gets lost, from our first initial thoughts we think
+                                that the problem lies within the host_axes_class
+                                that is called in the host_subplot_factory function,
+                                this is because it is likely that the variable is
+                                lost before it even makes it to the subplot class
+                                factory as it uses its default value rather than
+                                gives an error. we would need to go through the code
+                                and find a way to properly translate the argument
+                                over so that subplot_class_factory can read it and
+                                append it on the subplot properly. </p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-lg-12" style="display:inline-block">
                 </div>
             </section>
+        </div>
 
+        <!-- Footer -->
+        <section id="footer">
+            <div class="container">
+                <ul class="copyright">
+                    <li>&copy; Forkestra. All rights reserved.</li>
+                    <li>Design: <a href="http://html5up.net">HTML5 UP</a>
+                    </li>
+                </ul>
             </div>
+        </section>
 
-            <!-- Scripts -->
-            <script src="assets/js/jquery.min.js"></script>
-            <script src="assets/js/jquery.scrollzer.min.js"></script>
-            <script src="assets/js/jquery.scrolly.min.js"></script>
-            <script src="assets/js/skel.min.js"></script>
-            <script src="assets/js/util.js"></script>
-            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-            <script src="assets/js/main.js"></script>
-<!--             <script src=".//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollzer.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="assets/js/main.js"></script>
+    <!--             <script src=".//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
             <script>hljs.initHighlightingOnLoad();</script> -->
 
 </body>
