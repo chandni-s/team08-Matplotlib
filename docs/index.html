@@ -883,13 +883,13 @@ ValueError: Unknown element o</b>
                                     and subplot_class_factory to turn into a regular
                                     subplot with those adjustments.</p>
                                 <p>In Issue #6830 the problem comes from one of the arguments
-                                    when trying to instantiate a host_subplot, when the
-                                    argument "rotation" is passed in it should rotate
+                                    when trying to instantiate a host_subplot. When the
+                                    argument "rotation" is passed in, it should rotate
                                     the x-axis over to another axis (for example rotation=45
                                     should rotate the axis to the axis on the its right)
                                     however in its current form this functionality does
                                     not work.</p>
-                                    <p>When trying to fix the issue we looked at alot of different classes such as Artist, subplot and parasite_axes. each of these classes plays an important role in this issue, parasite_axes is the main class that takes in and creates these axes and host_axes it also reads and proccess all of the arguments and adjust them according. When creating parasite axes, the parasite axes factory eventually creates an subplot class object that is compatible with it, and then it will eventually pass it on. lastly the artist class is responsible for drawing the new axis on the screen after everything is compiled and finished.  </p>
+                                    <p>When trying to fix the issue we looked at alot of different classes such as Figure, subplot and parasite_axes. each of these classes plays an important role in this issue, parasite_axes is the main class that takes in and creates these axes and host_axes it also reads and proccess all of the arguments and adjust them accordingly. When creating parasite axes, the parasite axes factory eventually creates an subplot class object with all the adjustments. lastly the figure class is responsible for drawing the new axis on the screen after everything is compiled and finished.  </p>
                                 <p> When trying to find the error in this issue it is clear
                                     to see that the issue lies within the host_subplot
                                     function, when it takes in the argument rotation,
@@ -897,13 +897,13 @@ ValueError: Unknown element o</b>
                                     from within the host_subplot_factory function. to
                                     Implement this fix we would need to trace the function
                                     of host_subplot_factory and see where the variable
-                                    gets lost, from our first initial thoughts we think
+                                    gets lost. From our first initial thoughts we think
                                     that the problem lies within the host_axes_class
-                                    that is called in the host_subplot_factory function,
-                                    this is because it is likely that the variable is
+                                    that is called in the host_subplot_factory function.
+                                    This is because it is likely that the variable is
                                     lost before it even makes it to the subplot class
                                     factory as it uses its default value rather than
-                                    gives an error. we would need to go through the code
+                                    give an error. We would need to go through the code
                                     and find a way to properly translate the argument
                                     over so that subplot_class_factory can read it and
                                     append it on the subplot properly. </p>
