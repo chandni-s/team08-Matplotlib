@@ -856,55 +856,30 @@ ValueError: Unknown element o</b>
                                 need. For our 2nd Issue we are focusing on Issue
                                 number #6830 which is about rotating and customizing
                                 labels while using parasite axes. Parasite axes in
-                                MPL are basically regular axes but with the allowance
-                                of more customization, one of the main reasons why
+                                MPL are regular axes but with the allowance
+                                of more customization. One of the main reasons why
                                 people use parasite axes is the fact that it can
                                 allow people to have multiple Y axes in your graph.
+                                The main issue in 6830 is that when you want to rotate an axis over to another axis it fails to recognize the command, it ends up always using its default value for the rotation rather than the new updated value. We think that the issue is mainly to do with the handling of the variable from within the parasite axes classes rather than incompaitbility with subplot classes. 
                                 </p>
                             <p>On the left you can see an Example of Parasite axes</p>
-                            <pre>
-from mpl_toolkits.axes_grid1 import host_subplot
-import matplotlib.pyplot as plt
-
-host = host_subplot(111)
-
-par = host.twinx()
-
-host.set_xlabel("Distance")
-host.set_ylabel("Density")
-par.set_ylabel("Temperature")
-
-p1, = host.plot([0, 1, 2], [0, 1, 2], label="Density")
-p2, = par.plot([0, 1, 2], [0, 3, 2], label="Temperature")
-
-leg = plt.legend()
-
-host.yaxis.get_label().set_color(p1.get_color())
-leg.texts[0].set_color(p1.get_color())
-
-par.yaxis.get_label().set_color(p2.get_color())
-leg.texts[1].set_color(p2.get_color())
-
-plt.show()
-                            </pre>
                         </div>
 
                         <div class="col-lg-12" style="display:inline-block">
+                        <h4>Detailed description</h4>
+
                             <div class="col-lg-6" style="display:inline-block">
                                 <img src="images/6830 UML.png" class="tool-img">
                             </div>
                             <div class="col-lg-6" style="display:inline-block">
-                                <h4>Detailed description</h4>
-                                <p>To create a parasitic axes you must create a host subplot
+                                
+                                <p>To create a parasitic axes you must first import from the package axis_grid1 then you must create a host subplot
                                     that can host the axes so it knows where to show
-                                    up on the screen. When creating a parasite axe you
+                                    up on the screen. When creating a parasite axes you
                                     must call the host_subplot function, this function
                                     takes in any number of arguments and creates a host
-                                    subplot based on them, it does this by taking every
-                                    argument and throwing it through a host_subplot_factory
-                                    which it uses to add on to the subplot class it is
-                                    trying to host on. I takes in each argument that
-                                    is given and passes it through host_axes_class_factory
+                                    subplot based on them. It takes in each argument that
+                                    it's given and passes it through host_axes_class_factory
                                     and subplot_class_factory to turn into a regular
                                     subplot with those adjustments.</p>
                                 <p>In Issue #6830 the problem comes from one of the arguments
@@ -914,6 +889,7 @@ plt.show()
                                     should rotate the axis to the axis on the its right)
                                     however in its current form this functionality does
                                     not work.</p>
+                                    <p>When trying to fix the issue we looked at alot of different classes such as Artist, subplot and parasite_axes. each of these classes plays an important role in this issue, parasite_axes is the main class that takes in and creates these axes and host_axes it also reads and proccess all of the arguments and adjust them according. When creating parasite axes, the parasite axes factory eventually creates an subplot class object that is compatible with it, and then it will eventually pass it on. lastly the artist class is responsible for drawing the new axis on the screen after everything is compiled and finished.  </p>
                                 <p> When trying to find the error in this issue it is clear
                                     to see that the issue lies within the host_subplot
                                     function, when it takes in the argument rotation,
@@ -932,6 +908,7 @@ plt.show()
                                     over so that subplot_class_factory can read it and
                                     append it on the subplot properly. </p>
                             </div>
+                             <img src="images/6830Sequence.png" class="tool-img">
                         </div>
                     </div>
                 </div>
