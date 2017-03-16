@@ -825,8 +825,8 @@ ValueError: Unknown element o</b>
                     <div class="col-lg-12" style="display:inline-block">
                         <h4>Acceptance Tests</h4>
                         <p>We decided to immplement this issue for the final part of
-                            this project. "Explain why we chose to implement this
-                            bug over the other one here". Since this bug involves
+                            this project. This issue is more of a feature and API addendum. It is also something that users of matplotlib would use more.
+                            We want to make a more significant impact to this library. Since this bug involves
                             annotations, our acceptance tests would involve creating
                             everytype of style of annotation and checking if they
                             appear in the legend box. They are based on the documentation
@@ -889,7 +889,9 @@ ValueError: Unknown element o</b>
                                     should rotate the axis to the axis on the its right)
                                     however in its current form this functionality does
                                     not work.</p>
-                                    <p>When trying to fix the issue we looked at alot of different classes such as Figure, subplot and parasite_axes. each of these classes plays an important role in this issue, parasite_axes is the main class that takes in and creates these axes and host_axes it also reads and proccess all of the arguments and adjust them accordingly. When creating parasite axes, the parasite axes factory eventually creates an subplot class object with all the adjustments. lastly the figure class is responsible for drawing the new axis on the screen after everything is compiled and finished.  </p>
+
+                                    <p>When trying to fix the issue we looked at alot of different classes such as figure, subplot and parasite_axes. each of these classes plays an important role in this issue, parasite_axes is the main class that takes in and creates these axes and host_axes it also reads and proccess all of the arguments and adjust them according. When creating parasite axes, the parasite axes factory eventually creates an subplot class object that is compatible with it, and then it will eventually pass it on. lastly the figure class is responsible for drawing the new axis on the screen after everything is compiled and finished.  </p>
+
                                 <p> When trying to find the error in this issue it is clear
                                     to see that the issue lies within the host_subplot
                                     function, when it takes in the argument rotation,
