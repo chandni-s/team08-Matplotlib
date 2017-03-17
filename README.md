@@ -11,6 +11,11 @@
 ~~If you are having trouble with the server for whatever reason a snapshot of the burndown chart ~~ for February 10th 2017 sprint has been added to the index.html file.~~
 
 # Deliverable 3
+1. ~~Open docs/index.html to see website report.~~
+2. ~~Test Cases for the fixed bugs are located in test_cases/D3~~
+3. ~~private matplotlib directory where fixes were commited to is located at: https://github.com/desainis/matplotlib~~
+
+# Deliverable 4
 1. Open docs/index.html to see website report.
-2. Test Cases for the fixed bugs are located in test_cases/D3
-3. private matplotlib directory where fixes were commited to is located at: https://github.com/desainis/matplotlib
+2. The unit tests are in test_cases/D4/8236_test
+3. The acceptance tests are under test_cases/D4/8236_acceptance_tests.py
