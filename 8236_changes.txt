@@ -1,0 +1,14 @@
+axes/_base.py
+	line 1807: add add_annotation() function
+
+axes/axes.py
+	line 655: call add_annotation() instead of add_text()
+	line 262: append self.annotations to original handles
+
+legend.py
+	line 50: add text import
+	line 513: add annotation handler to default list
+
+legend_handler.py
+	line 180: define annotation handler
+	line 37: add imports
