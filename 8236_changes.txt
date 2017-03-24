@@ -1,9 +1,8 @@
 axes/_base.py
-	line 1807: add add_annotation() function
+	removed changes
 
 axes/axes.py
-	line 655: call add_annotation() instead of add_text()
-	line 262: append self.annotations to original handles
+	line 262: append self.texts to original handles (was originally self.annotations)
 
 legend.py
 	line 50: add text import
