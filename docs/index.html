@@ -870,7 +870,7 @@ plt.show()
                     		</pre>
                     	</div>
                     	<div class="col-lg-6" style="display:inline-block;">
-                    		<p>Adding annotations to legends is now possible! You can use it in the same way you add anything else to a legend. When you define an annotation just give it a "label" key arguement and then call plt.legend() or ax.legend().On the left you can see how to define an annotation with an arrow (distance), with text (distance3) and with both (distance2) and what the result now looks like. The aesthetic fields you set on the arrow and text (such as colour and style) will show up on the legend.</p>
+                    		<p>Adding annotations to legends is now possible! You can use it in the same way you add anything else to a legend. When you define an annotation just give it a "label" key arguement and then call plt.legend() or ax.legend().On the left you can see how to define an annotation with an arrow (distance), with text (distance3) and with both (distance2) and what the result now looks like. The aesthetic fields you set on the arrow and text (such as colour and style) will show up on the legend. Note that any size altering, annotation specific property such as "width" or "headlength" will not be copied on to the legend arrow for cleanliness and to match the documentation for the FancyArrowPatch class.</p>
 
                     		<p>There were very few hiccups when designing the fix for this; all went according to plan. The Diagram below shows am updated UML diagram that displays our new understanding of the issue. Anything in red was either added or updated by us to implement this feature</p>
                     		<img src="images/8236_UML_updated.png" class="tool-img">
