@@ -89,7 +89,7 @@ class Test8236(unittest.TestCase):
         self.assertEqual(artists[1].get_text(), "Aa")
 
     # test the newly created handler with an annotation with only text
-    def test_handler_full_annotation(self):
+    def test_handler_only_text_annotation(self):
         fig, ax = plt.subplots(1)
         anno = ax.annotate("test",
                            xy=(0.4, 1.0),
@@ -104,7 +104,7 @@ class Test8236(unittest.TestCase):
         self.assertEqual(artists[0].get_text(), "Aa")
 
     #test the newly created handler with an annotation with only an arrow
-    def test_handler_full_annotation(self):
+    def test_handler_arrow_annotation(self):
         fig, ax = plt.subplots(1)
         anno = ax.annotate("",
                     xy=(0.4, 1.0),
@@ -122,7 +122,7 @@ class Test8236(unittest.TestCase):
         self.assertEqual(artists[1].get_text(), "")
 
     #test the newly created handler with neither text or an arrow
-    def test_handler_full_annotation(self):
+    def test_handler_empty_annotation(self):
         fig, ax = plt.subplots(1)
         anno = ax.annotate("",
                     xy=(0.4, 1.0),
