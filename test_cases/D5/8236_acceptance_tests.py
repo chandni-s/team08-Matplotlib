@@ -28,8 +28,7 @@ def plot_annotations(style, show=False):
                 arrowprops={'arrowstyle': style, 'color': 'C7'},
                 label='annotation')
     ax.legend()
-    if show:
-        plt.show()
+    plt.show()
 
 def plot_annotations_no_style(prop, show=False):
 	fig, ax = plt.subplots(1)
@@ -41,79 +40,93 @@ def plot_annotations_no_style(prop, show=False):
                 arrowprops={prop: 20, 'color': 'C7'},
                 label='annotation')
     ax.legend()
-    if show:
-        plt.show()
+    plt.show()
 
 # @image_comparison(baseline_images=['Dash'], remove_text=True)
 def test_annotation_dash(show=False):
-    plot_annotations('-', show)
+    if show:
+        plot_annotations('-', show)
 
 
 # @image_comparison(baseline_images=['Right_arrow'], remove_text=True)
 def test_annotation_right_arrow(show=False):
-    plot_annotations('->', show)
+    if show:
+        plot_annotations('->', show)
 
 
 # @image_comparison(baseline_images=['Right_bracket'], remove_text=True)
 def test_annotation_right_bracket(show=False):
-    plot_annotations('-[', show)
+    if show:
+        plot_annotations('-[', show)
 
 
 # @image_comparison(baseline_images=['Flat_ends'], remove_text=True)
 def test_annotation_flat_ends(show=False):
-    plot_annotations('|-|', show)
+    if show:
+        plot_annotations('|-|', show)
 
 
 # @image_comparison(baseline_images=['Right_solid_arrow'], remove_text=True)
 def test_annotation_right_solid_arrow(show=False):
-    plot_annotations('-|>', show)
+    if show:
+        plot_annotations('-|>', show)
 
 
 # @image_comparison(baseline_images=['Left_arrow'], remove_text=True)
 def test_annotation_left_arrow(show=False):
-    plot_annotations('<-', show)
+    if show:
+        plot_annotations('<-', show)
 
 
 # @image_comparison(baseline_images=['Both_arrow'], remove_text=True)
 def test_annotation_both_arrow(show=False):
-    plot_annotations('<->', show)
+    if show:
+        plot_annotations('<->', show)
 
 
 # @image_comparison(baseline_images=['Left_solid_arrow'], remove_text=True)
 def test_annotation_left_solid_arrow(show=False):
-    plot_annotations('<|-', show)
+    if show:
+        plot_annotations('<|-', show)
 
 
 # @image_comparison(baseline_images=['Both_solid_arrow'], remove_text=True)
 def test_annotation_both_soild_arrow(show=False):
-    plot_annotations('<|-|>', show)
+    if show:
+        plot_annotations('<|-|>', show)
 
 
 # @image_comparison(baseline_images=['Both_solid_arrow'], remove_text=True)
 def test_annotation_fancy(show=False):
-    plot_annotations('fancy', show)
+    if show:
+        plot_annotations('fancy', show)
 
 
 # @image_comparison(baseline_images=['Both_solid_arrow'], remove_text=True)
 def test_annotation_simple(show=False):
-    plot_annotations('simple', show)
+    if show:
+        plot_annotations('simple', show)
 
 
 # @image_comparison(baseline_images=['Wedge'])
 def test_annotation_wedge(show=False):
-    plot_annotations('wedge', show)
+    if show:
+        plot_annotations('wedge', show)
 
 # @image_comparison(baseline_images=['Width_20'], remove_text=True)
 def test_annotation_width(show=False):
-	plot_annotations_no_style('width', show)
+    if show:
+	   plot_annotations_no_style('width', show)
 
 # @image_comparison(baseline_images=['Headwidth_20'], remove_text=True)
 def test_annotation_width(show=False):
-	plot_annotations_no_style('headwidth', show)
+    if show:
+	   plot_annotations_no_style('headwidth', show)
 
 # @image_comparison(baseline_images=['Headlength_20'], remove_text=True)
 def test_annotation_width(show=False):
-	plot_annotations_no_style('headlength', show)	
+    if show:
+	   plot_annotations_no_style('headlength', show)	
 
 
 if __name__ == '__main__':
