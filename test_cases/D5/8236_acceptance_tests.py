@@ -31,7 +31,7 @@ def plot_annotations(style, show=False):
     plt.show()
 
 def plot_annotations_no_style(prop, show=False):
-	fig, ax = plt.subplots(1)
+    fig, ax = plt.subplots(1)
     ax.plot([0, 1], [0, 0], label='line1')
     ax.plot([0, 1], [1, 1], label='line2')
     ax.annotate("",
@@ -113,20 +113,23 @@ def test_annotation_wedge(show=False):
     if show:
         plot_annotations('wedge', show)
 
+
 # @image_comparison(baseline_images=['Width_20'], remove_text=True)
 def test_annotation_width(show=False):
     if show:
-	   plot_annotations_no_style('width', show)
+        plot_annotations_no_style('width', show)
+
 
 # @image_comparison(baseline_images=['Headwidth_20'], remove_text=True)
-def test_annotation_width(show=False):
+def test_annotation_headwidth(show=False):
     if show:
-	   plot_annotations_no_style('headwidth', show)
+        plot_annotations_no_style('headwidth', show)
+
 
 # @image_comparison(baseline_images=['Headlength_20'], remove_text=True)
-def test_annotation_width(show=False):
+def test_annotation_headlength(show=False):
     if show:
-	   plot_annotations_no_style('headlength', show)	
+        plot_annotations_no_style('headlength', show)
 
 
 if __name__ == '__main__':

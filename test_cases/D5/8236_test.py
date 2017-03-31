@@ -45,17 +45,17 @@ class Test8236(unittest.TestCase):
         with self.assertRaises(TypeError):
             ax.legend(1)
 
-    # adding integer as label, should raise TypeError
-    # def test_add_label_integer(self):
-    #     fig, ax = plt.subplots(1)
-    #     ax.annotate("",
-    #                     xy=(0.4, 1.0),
-    #                     xytext=(0.4, 0.0),
-    #                     arrowprops={'arrowstyle': '<->', 'color': 'C7'},
-    #                     label=1)
+    # adding integer as label, should have label as 1
+    def test_add_label_integer(self):
+        fig, ax = plt.subplots(1)
+        ax.annotate("",
+                    xy=(0.4, 1.0),
+                    xytext=(0.4, 0.0),
+                    arrowprops={'arrowstyle': '<->', 'color': 'C7'},
+                    label=1)
 
-    #     with self.assertRaises(TypeError):
-    #         ax.legend()
+        handles, labels = ax.get_legend_handles_labels()
+        self.assertFalse(1 in labels)
 
     # only annotation has legend - should have no user warning
     def test_annotation_only(self):
@@ -70,7 +70,7 @@ class Test8236(unittest.TestCase):
         handles, labels = ax.get_legend_handles_labels()
         self.assertIn('distance', labels)
 
-    #test the newly created handler with a full annotation
+    # test the newly created handler with a full annotation
     def test_handler_full_annotation(self):
         fig, ax = plt.subplots(1)
         anno = ax.annotate("test",
@@ -81,7 +81,7 @@ class Test8236(unittest.TestCase):
         legend = ax.legend()
         draw = DrawingArea(20.0,7.0, 0.0, 0.0)
         handle = HandlerAnnotation()
-        artists = handle.create_artists(legend,anno,0.0,0.0,20.0,7.0, 10.0, draw)
+        artists = handle.create_artists(legend, anno, 0.0, 0.0, 20.0, 7.0, 10.0, draw)
         self.assertEqual(len(artists), 2)
         self.assertTrue(isinstance(artists[0],FancyArrowPatch))
         self.assertTrue(isinstance(artists[1], Text))
@@ -103,7 +103,7 @@ class Test8236(unittest.TestCase):
         self.assertTrue(isinstance(artists[0], Text))
         self.assertEqual(artists[0].get_text(), "Aa")
 
-    #test the newly created handler with an annotation with only an arrow
+    # test the newly created handler with an annotation with only an arrow
     def test_handler_arrow_annotation(self):
         fig, ax = plt.subplots(1)
         anno = ax.annotate("",
@@ -114,14 +114,14 @@ class Test8236(unittest.TestCase):
         legend = ax.legend()
         draw = DrawingArea(20.0,7.0, 0.0, 0.0)
         handle = HandlerAnnotation()
-        artists = handle.create_artists(legend,anno,0.0,0.0,20.0,7.0, 10.0, draw)
+        artists = handle.create_artists(legend, anno, 0.0, 0.0, 20.0, 7.0, 10.0, draw)
         self.assertEqual(len(artists), 2)
         self.assertTrue(isinstance(artists[0],FancyArrowPatch))
         self.assertTrue(isinstance(artists[1], Text))
         self.assertTrue(isinstance(artists[0]._arrow_transmuter, ArrowStyle.CurveB))
         self.assertEqual(artists[1].get_text(), "")
 
-    #test the newly created handler with neither text or an arrow
+    # test the newly created handler with neither text or an arrow
     def test_handler_empty_annotation(self):
         fig, ax = plt.subplots(1)
         anno = ax.annotate("",
@@ -131,7 +131,7 @@ class Test8236(unittest.TestCase):
         legend = ax.legend()
         draw = DrawingArea(20.0,7.0, 0.0, 0.0)
         handle = HandlerAnnotation()
-        artists = handle.create_artists(legend,anno,0.0,0.0,20.0,7.0, 10.0, draw)
+        artists = handle.create_artists(legend, anno, 0.0, 0.0, 20.0, 7.0, 10.0, draw)
         self.assertEqual(len(artists), 1)
         self.assertTrue(isinstance(artists[0], Text))
         self.assertEqual(artists[0].get_text(), "")
