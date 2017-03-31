@@ -897,7 +897,7 @@ plt.show()
                                 of more customization. One of the main reasons why
                                 people use parasite axes is the fact that it can
                                 allow people to have multiple Y axes in your graph.
-                                The main issue in 6830 is that when you want to rotate the labels of an axis it fails to recognize the command, it ends up always using its default value for the rotation rather than the new updated value. The issue came from the Axis Artist class because when it is told to draw these labels it doesn't properly retrieve the values. 
+                                The main issue in 6830 is that when you want to rotate the labels of an axis it fails to recognize the command, it ends up always using its default value for the rotation rather than the new updated value. The issue came from the Axis Artist class. When it is told to draw these labels it doesn't properly retrieve the values. 
                                 </p>
                             <p>On the left you can see an Example of Parasite axes</p>
                         </div>
@@ -911,22 +911,22 @@ plt.show()
                             <div class="col-lg-6" style="display:inline-block">
                                 
                                 <p>To create a parasitic axes you must first import from the package axis_grid1 then you must create a host subplot
-                                    that can host the axes so it knows where to show
+                                    that can host the axes. This is how it knows where to show
                                     up on the screen. When creating a parasite axes you
                                     must call the host_subplot function, this function
                                     takes in any number of arguments and creates a host
                                     subplot based on them. It takes in each argument that
                                     it's given and passes it through host_axes_class_factory
-                                    and subplot_class_factory to turn into a regular
+                                    and subplot_class_factory to turn it into a regular
                                     subplot with those adjustments.</p>
-                                <p>In Issue #6830 the problem comes from one of the arguments
+                                <p>In Issue #6830 the problem comes from one of the arguments given
                                     when trying to instantiate a host_subplot. When the
                                     argument "rotation" is passed in, it should rotate
-                                    the label of the axis by a certain degree, for (rotate=45 should rotate the label text by 45 degrees)
-                                    however in its current form this functionality does
+                                    the label of the axis by a certain degree. for example rotate=45 should rotate the label text by 45 degrees.
+                                    However, in its current state this functionality does
                                     not work.</p>
 
-                                    <p>When trying to fix the issue we looked at alot of different classes such as Axis_artist, parasite_axes and text. each of these classes plays an important role in this issue, parasite_axes is the main class that takes in and creates these axes and host_axes it also reads and proccess all of the arguments and adjust them according. Axis_artist is the customized artist that is used to draw the new parasite axes and text is the actual object that of the label, it also holds the rotation value </p>
+                                    <p>When trying to fix the issue we looked at alot of different classes such as Axis_artist, parasite_axes and text. each of these classes plays an important role in this issue. parasite_axes is the main class that takes in and creates these axes and host_axes; it also reads and processes all of the arguments and adjusts them accordingly. Axis_artist is the customized artist that is used to draw the new parasite axes and text is the actual object of the label, it also holds the rotation value </p>
 
                             </div>
                              <img src="images/6830 Sequence.png" class="tool-img">
@@ -936,8 +936,6 @@ plt.show()
                         <div class="col-lg-6" style="display:inline-block;">
                             <img src="images/6830_fixed.png" class="tool-img">
                             <pre>
-
-
 host = host_subplot(111,axes_class=AA.Axes)
 plt.subplots_adjust(bottom=0.15)
 host.plot(10,10)
@@ -947,10 +945,11 @@ plt.show()
                             </pre>
                         </div>
                         <div class="col-lg-6" style="display:inline-block;">
-                            <p>The issue to this problem lies within the axis_artist module, the axisArtist class goes through and takes all the values of the original axe and creates new text objects from them
-                            in its draw function which is very different from the regular artist. the main problem was that when it was getting all the values from the original text labels it doesn't accomodate for the rotation variable. the draw function in the axisartist class loops through all the pre-exisiting axes values in the update function sets their values according, it sets all the angles in the _get_tick_info, however in this function it never calls on the original rotation values and uses a default function instead. Therefore even if the rotation variable is correctly set and the original object is working properly it still would not draw the rotation because of the way axisArtist draws them. This is most likey just a simple oversight because the rest of the angle calculation is correct. </p>
-                            <p> the fix</p> 
-                            <p>the function get_tick_info is in the AxisArtist class so it has access to the original axe values, and because of this we can loop through all the original values and retrieve its rotation value. we then assign it on to the angle_label variable too the appropriate label. now axis_artist has a proper call to the rotation value of the original axes class, so will constantly update the value even if it is changed later on.</p>
+                            <p>The issue to this problem lies within the axis_artist module. The axisArtist class goes through and takes all the values of the original axis and creates new text objects from them.
+                            The <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L1559">AxisArtist</a> and the <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L776">Ticklabel</a> draw functions are repsonsible for updating all the values of the current labels. The draw function in AxisArtist calls draw_ticks which in turn calls update_ticks which calls get_ticks_info to draw and display the figure on screen. The get_ticks_info function is responsible for updating the angle of both the tick and tick labels. The Tickslabel's draw function then uses this angle to redraw the ticks in new x and y positions. The main problem is in the get_ticks_info function when it is updating the tickslabel rotation; it doesn't accomodate for the rotation values of the original axes.
+                            Therefore, even if the rotation variable is correctly set and the original object is working properly it still would not draw the rotation because of the way axisArtist draws them, which occurs after the user calls plt.show(). This is most likey just a simple oversight because the rest of the angle calculation is correct. </p>
+                            <p style="font-size: 24pt;"> <a href="https://github.com/desainis/matplotlib/blob/master/lib/mpl_toolkits/axisartist/axis_artist.py#L1237">the fix</a></p> 
+                            <p>the function get_tick_info is in the AxisArtist class so it has access to the original axes fields, because of this we can loop through all the original fields and retrieve its rotation value. We then assign it to the angle_label variable. Now axis_artist is properly setting the rotation value.</p>
 
                             <pre>
 for x in self.axes.get_xticklabels():
@@ -960,7 +959,7 @@ for x in self.axes.get_xticklabels():
 
 
 
-                            <p>The fix for this bug was only 3 lines of code, however the majority of the time was spent tracing and realizing where the variable was dropped. axis_artist is very different from the actual artist class. for example creating a resetting the text object when a draw is called is completely different from how artist creates it, this is because the axis_artist needs to be able to reposistion these objects. At first we thought the problem was in the actually declaration of the rotation variable, that it couldn't set the variable properly, but we soon found out that the variable was correct but because of how the axis_artist draws the labels by creating a new text object, that was where the problem is.</p>
+                            <p>The fix for this bug was only 3 lines of code, however the majority of the time was spent tracing and realizing where the variable was dropped. axis_artist is very different from the actual artist class. For example, the text object is getting reset everytime we call draw in AxisArtist, this is completely different from how artist creates it. This is because the axis_artist needs to be able to reposistion these objects to position these ticks and ticklabels in the proper specificed locations. At first we thought the problem was in the declaration of the rotation variable, we believed it wasn't setting the variable properly. We eventually came to the conclusion that the problem was in the draw function because the rotation variable was being set properly. Once we knew the problem was during the draw process we focused on tracing where the AxisArtist gets the values of the original axes and added an extra case in there. </p>
 
                         </div>
                     </div>
