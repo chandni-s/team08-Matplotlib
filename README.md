@@ -16,6 +16,11 @@
 3. ~~private matplotlib directory where fixes were commited to is located at: https://github.com/desainis/matplotlib~~
 
 # Deliverable 4
+1. ~~Open docs/index.html to see website report.~~
+2. ~~The unit tests are in test_cases/D4/8236_test~~
+3. ~~The acceptance tests are under test_cases/D4/8236_acceptance_tests.py~~
+
+# Deliverable 5
 1. Open docs/index.html to see website report.
-2. The unit tests are in test_cases/D4/8236_test
-3. The acceptance tests are under test_cases/D4/8236_acceptance_tests.py
+2. All test files are in test_cases/D5/
+3. Actual implementations of issues are located in the desainis/matplotlib repository linked in report
